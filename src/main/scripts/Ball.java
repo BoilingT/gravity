@@ -17,8 +17,8 @@ public class Ball extends GameObject{
 		setRandVel();
 //		System.out.println(this.getMass());
 //		this.hasGravity(false);
-		this.addShape(Shapes.Arc(new Vector2<Float>(-25f,-25f), 50f, 50f), Color.black, true);
-		this.addShape(Shapes.Arc(new Vector2<Float>(-5f, -5f), 10, 10), Color.blue, true);
+		this.addShape(Shapes.Arc(new Vector2<Float>(-25f,-25f), 50f, 50f), Color.white, true);
+		this.addShape(Shapes.Arc(new Vector2<Float>(-5f, -5f), 10, 10), Color.white, true);
 		this.addShape(Shapes.Rect(new Vector2<Float>(-25f, -25f), 50f, 50f), Color.blue, false);
 	}
 	

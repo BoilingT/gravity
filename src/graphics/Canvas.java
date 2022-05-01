@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -75,6 +76,8 @@ public class Canvas extends JPanel implements Runnable{
 		this.WIDTH = this.getWidth();
 		Graphics2D g = (Graphics2D) g1;
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		drawer.setGraphics2D(g);
 		if (drawer.isNull()) {
 			System.out.println("Graphics isn't set");

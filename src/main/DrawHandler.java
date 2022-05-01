@@ -184,8 +184,8 @@ public class DrawHandler{
 					collider.buildingBlocks().getObjects().get(0).setColor(Color.red);
 //					obj.getVel().set(Vector2.scale(new Vector2<Float>(obj.getVel().getX(), -obj.getVel().getY()), -1));
 				}else {
-					obj.buildingBlocks().getObjects().get(0).setColor(Color.black);				
-					collider.buildingBlocks().getObjects().get(0).setColor(Color.black);					
+					obj.buildingBlocks().getObjects().get(0).setColor(Color.white);				
+					collider.buildingBlocks().getObjects().get(0).setColor(Color.white);					
 				}
 			}
 		}
