@@ -45,7 +45,7 @@ public class Matrix {
 		this.C = C;
 		this.R = R;
 		try {
-			this.matrix = values;			
+			this.setValues(values, C, R);			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -55,6 +55,17 @@ public class Matrix {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
 				matrix[i][j] = value;
+			}
+		}
+	}
+	
+	public void setValues(float[][] values, int C, int R) {
+		this.C = C;
+		this.R = R;
+		matrix = new float[C][R];
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				matrix[i][j] = values[i][j];
 			}
 		}
 	}
