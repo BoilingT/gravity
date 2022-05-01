@@ -140,33 +140,7 @@ public class Matrix {
 	}
 	
 	public Matrix mult(Matrix m) {
-		//C == R
-		Matrix m1 = this;
-		if(m1.C != m.R) {
-			System.out.println("The number of collumns in matrix A must match the number of rows in matrix B");
-			return null;
-		}
-			
-		
-		Matrix resMatrix = new Matrix(m1.R, m.C);
-		
-		for (int x = 0; x < resMatrix.C; x++) {
-			for (int y = 0; y < resMatrix.R; y++) {
-				//Calculate dot product
-				float value = 0;
-				for (int i = 0; i < m1.C; i++) {
-					float m1V = m1.getValue(x, i);
-					float m2V = m.getValue(i, y);
-					value += m1V * m2V;
-//					System.out.print(" " + m1V + "*" + m2V+ " ");
-				}
-//				System.out.print("+");
-				resMatrix.set(x, y, value);					
-			}
-//			System.out.println("\n");
-		}
-		
-		return null;
+		return Matrix.mult(this, m);
 	}
 	
 	public String toString() {
