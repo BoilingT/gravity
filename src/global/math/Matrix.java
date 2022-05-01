@@ -62,7 +62,7 @@ public class Matrix {
 	public void setValues(float[][] values, int C, int R) {
 		this.C = C;
 		this.R = R;
-		matrix = new float[C][R];
+		matrix = new float[R][C];
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
 				matrix[i][j] = values[i][j];

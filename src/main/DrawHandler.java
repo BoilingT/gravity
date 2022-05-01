@@ -35,7 +35,7 @@ public class DrawHandler{
 	private Player player = new Player();
 	private Border border = new Border(1000, 700, 1, Color.black);
 	private Ball ball = new Ball();
-	private Cube cube = new Cube(0, 300, 100, 100, 100);
+	private Cube cube = new Cube(0, 300, 100, 100, 200);
 	
 	private Ball b = new Ball();
 	private Ball c = new Ball();
@@ -131,15 +131,15 @@ public class DrawHandler{
 //		c.getTransform().position().set(500f, 200f);
 //		GameObjects.add(c);
 		
-//		for (int i = 0; i < 10; i++) {
-//			Ball b = new Ball();
-//			float x = (float) Math.random() * border.getWIDTH();
-//			float y = (float) Math.random() * border.getHEIGHT();
-////			b.hasGravity(false);
-//			b.border = border;
-//			b.getTransform().position().set(x, y);
-//			GameObjects.add(b);
-//		}		
+		for (int i = 0; i < 10; i++) {
+			Ball b = new Ball();
+			float x = (float) Math.random() * border.getWIDTH();
+			float y = (float) Math.random() * border.getHEIGHT();
+//			b.hasGravity(false);
+			b.border = border;
+			b.getTransform().position().set(x, y);
+			GameObjects.add(b);
+		}		
 		GameObjects.add(cube);
 	}
 	

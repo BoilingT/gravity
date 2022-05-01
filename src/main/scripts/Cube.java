@@ -151,9 +151,5 @@ public class Cube extends GameObject{
 		
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
-		
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(4)), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(4)), Color.blue, false);
-
 	}
 }
