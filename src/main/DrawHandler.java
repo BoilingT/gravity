@@ -105,15 +105,15 @@ public class DrawHandler{
 	public void addGameObjects() {
 		GameObjects.add(border);
 		
-		for (int i = 0; i < 10; i++) {
-			Ball b = new Ball();
-			float x = (float) Math.random() * border.getWIDTH();
-			float y = (float) Math.random() * border.getHEIGHT();
-//			b.hasGravity(false);
-			b.border = border;
-			b.getTransform().position().set(x, y);
-			GameObjects.add(b);
-		}		
+//		for (int i = 0; i < 10; i++) {
+//			Ball b = new Ball();
+//			float x = (float) Math.random() * border.getWIDTH();
+//			float y = (float) Math.random() * border.getHEIGHT();
+////			b.hasGravity(false);
+//			b.border = border;
+//			b.getTransform().position().set(x, y);
+//			GameObjects.add(b);
+//		}		
 		GameObjects.add(cube);
 	}
 	
@@ -133,7 +133,7 @@ public class DrawHandler{
 	public void update() {
 		cubeUpdate();
 		ballCollisonUpdate();
-//		gameObjectUpdate();
+		gameObjectUpdate();
 		sleep((int)(1/144f*1000));
 	}
 	
@@ -145,7 +145,7 @@ public class DrawHandler{
 	
 	float n = 0;
 	private void cubeUpdate() {
-		cube.rotateX(Math.PI/180*(n+=0.3f));
+		cube.rotateX(Math.PI/180*(n+=0.5f));
 	}
 	
 	float force = 0.9f;

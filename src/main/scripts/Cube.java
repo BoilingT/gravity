@@ -112,8 +112,7 @@ public class Cube extends GameObject{
 					);
 //			System.out.println(result.toString());
 			Matrix projected = Matrix.mult(proj, result);
-			projected.mult(200);
-			System.out.println(projected.toString());
+			projected.mult(500);
 
 			m.setValues(2, 1, projected.getValues());
 		}
@@ -128,8 +127,8 @@ public class Cube extends GameObject{
 		for (Matrix m : points) {
 			
 			float px, py, pz;
-			px = m.getValues()[0][0] + 300;
-			py = m.getValues()[1][0] + 300;
+			px = m.getValues()[0][0] + 500;
+			py = m.getValues()[1][0] + 350;
 //			pz = m.getValues()[2][0];
 			vPoints.add(new Vector2<Float>(px, py));
 		}
@@ -152,6 +151,6 @@ public class Cube extends GameObject{
 		
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
-		addShape(Shapes.Arc(new Vector2<Float>(x+300-5, y+300-5), 10, 10), Color.blue, true);
+//		addShape(Shapes.Arc(new Vector2<Float>(x+500-5, y+350-5), 10, 10), Color.blue, true);
 	}
 }
