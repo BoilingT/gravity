@@ -27,7 +27,7 @@ public class ObjectCollection {
 		this.shapeObjects = shapeObjects;
 	}
 	
-	public void set(ShapeObject[] shapeObjects) {
+	public void addObjects(ShapeObject[] shapeObjects) {
 		for (ShapeObject obj : shapeObjects) {
 			this.shapeObjects.add(obj);
 		}

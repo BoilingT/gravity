@@ -21,7 +21,6 @@ public class DrawHandler{
 	
 	private ConsoleWindow console; 
 	private GraphicGeometry draw;
-	private Shapes shapes;
 
 	private ShapeObject velText;
 	private ShapeObject accText;
@@ -35,16 +34,11 @@ public class DrawHandler{
 	private Player player = new Player();
 	private Border border = new Border(1000, 700, 1, Color.black);
 	private Ball ball = new Ball();
-	private Cube cube = new Cube(0, 300, 100, 100, 200);
-	
-	private Ball b = new Ball();
-	private Ball c = new Ball();
-
+	private Cube cube = new Cube(-0.5f, 0.5f, -0.5f, 1, 1, 1);
 	
 	public DrawHandler() {
 		draw = GraphicGeometry.getInstance();
 		console = ConsoleWindow.getInstance();
-		shapes = new Shapes();
 	}
 	
 	public void mouseMotionAction(MouseEvent e) {
@@ -65,24 +59,10 @@ public class DrawHandler{
 	
 	//Preparation
 	public void setup() {
-//		for (float i = 0; i < 1000; i+=10) {
-//			draw.addLine(new Vector2<Float>(i, 0f), new Vector2<Float>(i, 700f), null);
-//		}
-//		for (float i = 0; i < 700; i+=10) {
-//			draw.addLine(new Vector2<Float>(0f, i), new Vector2<Float>(1000f, i), null);
-//		}
-		addGameObjects();
-		for (GameObject obj : GameObjects) {
-			obj.init();
-		}
 
-//		b.applyForce(200f, 0f);
-//		c.applyForce(-100f, -10f);
-//		c.applyForce(0f, 0f);
-
-		velText = draw.addText(player.getVel().toString(), new Vector2<Float>(100f, 100f), null);
-		accText = draw.addText(player.getAcc().toString(), new Vector2<Float>(100f, 40f), null);
-		Text = draw.addText("Text", new Vector2<Float>(100f, 20f), null);
+		velText = draw.addText(player.getVel().toString(), new Vector2<Float>(100f, 100f), Color.white);
+		accText = draw.addText(player.getAcc().toString(), new Vector2<Float>(100f, 40f), Color.white);
+		Text = draw.addText("Text", new Vector2<Float>(100f, 20f), Color.white);
 		line = draw.addLine(mousePos, player.getTransform().position(), "");
 		circle = draw.addArc(new Vector2<Float>(0f, 0f), 10, 10, "");
 		circle.setColor(Color.BLUE);
@@ -91,45 +71,39 @@ public class DrawHandler{
 		border.getTransform().position().set(0f, 0f);
 		ball.border = border;
 		ball.getTransform().position().set(100f, 100f);
-		drawGameObjects();
-		console.cout("Setup done!");
 		
 		Matrix mA = null;
 		Matrix mB = null;
-		try {
-			mA = new Matrix(new float[][] 
+			mA = new Matrix(3,2,new float[][] 
 					{
 				{1, 3},
 				{4, -1},
 				{-5, 10}
-				}, 2, 3);
+				});
 			
-			mB = new Matrix(new float[][] 
+			mB = new Matrix(2,2,new float[][] 
 					{
 				{2, 1},
 				{-8, 6}
-				}, 2, 2);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				});
+
 		if (mA != null && mB != null) {
-			System.out.println("Matrix A: " + mA.toString());
-			System.out.println("Matrix B: " + mB.toString());
-			System.out.println("Mult: \n" + Matrix.mult(mA, mB).toString());
+			Matrix res = Matrix.mult(mA, mB);
+//			System.out.println("Matrix A: " + mA.toString());
+//			System.out.println("Matrix B: " + mB.toString());
+//			System.out.println("Mult: \n" + res.toString());
 		}
+		
+		addGameObjects();
+		for (GameObject obj : GameObjects) {
+			obj.init();
+		}
+		cube.rotateX(Math.PI/180*45);
+		console.cout("Setup done!");
 	}
 	
 	public void addGameObjects() {
-//		GameObjects.add(player);
 		GameObjects.add(border);
-//		GameObjects.add(ball);
-		
-//		b.border = border;
-//		b.getTransform().position().set(100f, 200f);
-//		GameObjects.add(b);
-//		c.border = border;
-//		c.getTransform().position().set(500f, 200f);
-//		GameObjects.add(c);
 		
 		for (int i = 0; i < 10; i++) {
 			Ball b = new Ball();
@@ -151,9 +125,30 @@ public class DrawHandler{
 	
 	//Drawing
 	public void draw() {
-
+		drawGameObjects();
 		console.cout("Drawing done!");
 	}
+	
+	//Execution
+	public void update() {
+		cubeUpdate();
+		ballCollisonUpdate();
+//		gameObjectUpdate();
+		sleep((int)(1/144f*1000));
+	}
+	
+	private void gameObjectUpdate() {
+		for (GameObject obj : GameObjects) {
+			obj.update();
+		}
+	}
+	
+	float n = 0;
+	private void cubeUpdate() {
+		cube.rotateX(Math.PI/180*(n+=0.3f));
+	}
+	
+	float force = 0.9f;
 	
 	public Vector2<Float> calcF(Vector2<Float> d1, Vector2<Float> d2){
 		float dx = d2.getX() - d1.getX();
@@ -163,33 +158,8 @@ public class DrawHandler{
 		float a = force / player.getMass();
 		return new Vector2<Float>(dx * a, -dy*a);
 	}
-			
-	float force = 0.9f;
-	int n = 0;
-	//Execution
-	public void update() {
-		for (GameObject obj : GameObjects) {
-			if(obj == GameObjects.get(0)) continue;
-//			System.out.println("1 and 2: " + String.valueOf(Vector2.getDistance(GameObjects.get(1).getTransform().position(), GameObjects.get(2).getTransform().position())) +
-//					" :: 3 and 1: " + String.valueOf(Vector2.getDistance(GameObjects.get(3).getTransform().position(), GameObjects.get(1).getTransform().position())) +
-//					" :: 3 and 2: " + String.valueOf(Vector2.getDistance(GameObjects.get(3).getTransform().position(), GameObjects.get(2).getTransform().position())));
-			for (GameObject collider : GameObjects) {
-//				GameObject collider = GameObjects.get(3);
-				if(obj == collider || collider == GameObjects.get(0)) continue;
-				float dist = (float) Vector2.getDistance(obj.getTransform().position(), collider.getTransform().position()) - 50f;
-				if(dist >= 50f) continue;
-				if(dist <= 0) {
-					//Collision
-					obj.buildingBlocks().getObjects().get(0).setColor(Color.red);
-					collider.buildingBlocks().getObjects().get(0).setColor(Color.red);
-//					obj.getVel().set(Vector2.scale(new Vector2<Float>(obj.getVel().getX(), -obj.getVel().getY()), -1));
-				}else {
-					obj.buildingBlocks().getObjects().get(0).setColor(Color.white);				
-					collider.buildingBlocks().getObjects().get(0).setColor(Color.white);					
-				}
-			}
-		}
-
+	
+	private void missileUpdate(float force) {
 		Vector2<Float> pos = player.getTransform().position();
 		velText.setText("FPS: " + (int) (1/Canvas.getInstance().deltaTime()));
 		accText.setText("Acceleration: " + player.getAcc().toString());
@@ -217,20 +187,30 @@ public class DrawHandler{
 		line = draw.addLine(Vector2.add(new Vector2<Float>(pos.getX()+15, pos.getY()+15), new Vector2<Float>(f.getX() * mult, -f.getY() * mult)), new Vector2<Float>(pos.getX()+15, pos.getY()+15), "");
 		Vector2<Float> circlePos = Vector2.add(mousePos, newPos);
 //		circle.setPos(new Vector2<Float>(circlePos.getX() - 7.5f/2, circlePos.getY()-7.5f/2));
+	}
+	
+	private void ballCollisonUpdate() {
 		for (GameObject obj : GameObjects) {
-			obj.update();
+			if(obj == GameObjects.get(0)) continue;
+//			System.out.println("1 and 2: " + String.valueOf(Vector2.getDistance(GameObjects.get(1).getTransform().position(), GameObjects.get(2).getTransform().position())) +
+//					" :: 3 and 1: " + String.valueOf(Vector2.getDistance(GameObjects.get(3).getTransform().position(), GameObjects.get(1).getTransform().position())) +
+//					" :: 3 and 2: " + String.valueOf(Vector2.getDistance(GameObjects.get(3).getTransform().position(), GameObjects.get(2).getTransform().position())));
+			for (GameObject collider : GameObjects) {
+//				GameObject collider = GameObjects.get(3);
+				if(obj == collider || collider == GameObjects.get(0)) continue;
+				float dist = (float) Vector2.getDistance(obj.getTransform().position(), collider.getTransform().position()) - 50f;
+				if(dist >= 50f) continue;
+				if(dist <= 0) {
+					//Collision
+					obj.buildingBlocks().getObjects().get(0).setColor(Color.red);
+					collider.buildingBlocks().getObjects().get(0).setColor(Color.red);
+//					obj.getVel().set(Vector2.scale(new Vector2<Float>(obj.getVel().getX(), -obj.getVel().getY()), -1));
+				}else {
+					obj.buildingBlocks().getObjects().get(0).setColor(Color.white);				
+					collider.buildingBlocks().getObjects().get(0).setColor(Color.white);					
+				}
+			}
 		}
-//
-//		GameObject obj = this.b;
-//		GameObject collider = this.c;
-		
-
-		sleep((int)(1/144f*1000));
-		cube.rotateX(Math.PI/180*n++);
-
-//		cube.rotateX(Math.PI/180*(n+=1));
-
-
 	}
 	
 	private void sleep(int ms) {

@@ -18,7 +18,7 @@ public abstract class GameObject{
 	private Vector2<Float> acceleration = new Vector2<Float>(0f, 0f);
 	private float mass = 0;
 	private boolean gravity = true;
-
+	
 	public String getName() {
 		return this.name;
 	}

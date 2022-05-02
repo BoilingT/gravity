@@ -14,27 +14,26 @@ public class Cube extends GameObject{
 
 	private Matrix[] points;
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
-	private float w, h, d;
+	private float w, h, d, x, y, z;
 	
-	public Cube(float x, float y, float w, float h, float d) {
+	public Cube(float x, float y,float z, float w, float h, float d) {
 		this.getTransform().position().set(x, y);
 		this.w = w;
 		this.h = h;
 		this.d = d;
-		float z;
-		x = this.getTransform().position().getX();
-		y = this.getTransform().position().getY();
-		z = 0;
+		this.x = this.getTransform().position().getX();
+		this.y = this.getTransform().position().getY();
+		this.z = z;
 		points = new Matrix[] {
-				new Matrix(new float[][] {{x}, {y}, {z}}, 1, 3), //0
-				new Matrix(new float[][] {{x+w}, {y}, {z}}, 1, 3), //1
-				new Matrix(new float[][] {{x+w}, {y-h}, {z}}, 1, 3), //2
-				new Matrix(new float[][] {{x}, {y-h}, {z}}, 1, 3), //3
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z}}), //0
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z}}), //1
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z}}), //2
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z}}), //3
 
-				new Matrix(new float[][] {{x}, {y}, {z+d}}, 1, 3), //4
-				new Matrix(new float[][] {{x+w}, {y}, {z+d}}, 1, 3), //5
-				new Matrix(new float[][] {{x+w}, {y-h}, {z+d}}, 1, 3), //6
-				new Matrix(new float[][] {{x}, {y-h}, {z+d}}, 1, 3), //7
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z+d}}), //4
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z+d}}), //5
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z+d}}), //6
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z+d}}), //7
 		};
 	}
 	
@@ -58,64 +57,65 @@ public class Cube extends GameObject{
 	
 	public void rotateX(double angle) {
 		
-		Matrix rotX = new Matrix(new float[][] 
+		Matrix rotX = new Matrix(3, 3, new float[][] 
 				{
 				{1, 0, 0},
 				{0, (float)Math.cos(angle), (float)-Math.sin(angle)},
 				{0, (float) Math.sin(angle), (float)Math.cos(angle)},
 				}
-		, 3, 3);
+		);
 		
-//		float rotateZ[4][4] = {
-//				{cosf(timeValue), -sinf(timeValue), 0, 0},
-//				{sinf(timeValue), cosf(timeValue), 0, 0},
-//				{0, 0, 1, 0},
-//				{0, 0, 0, 1}
-//			};
+		Matrix rotZ = new Matrix(3, 3, new float[][]{
+				{(float)Math.cos(angle), (float)-Math.sin(angle), 0},
+				{(float)Math.sin(angle), (float)Math.cos(angle), 0},
+				{0, 0, 1},
+			});
 		
-		Matrix rotY = new Matrix(new float[][] 
+		Matrix rotY = new Matrix(3, 3, new float[][] 
 				{
 				{(float)Math.cos(angle), 0, (float)Math.sin(angle)},
 				{0, 1, 0},
 				{(float)-Math.sin(angle), 0, (float)Math.cos(angle)}
 				}
-		, 3, 3);
+		);
 		
-		Matrix tM = new Matrix(new float[][] 
-				{
-				{1, 0, 0},
-				{0, 1, 0},
-				{0, 0, 1},
-				}
-		, 3, 3);
 		
-		rotY = Matrix.mult(rotX, rotY);
-		float z = 0;
-		float x = this.getTransform().position().getX();
-		float y = this.getTransform().position().getY();
+		x = this.getTransform().position().getX();
+		y = this.getTransform().position().getY();
+		
 		Matrix[] pts = new Matrix[] {
-				new Matrix(new float[][] {{x}, {y}, {z}}, 1, 3), //0
-				new Matrix(new float[][] {{x+w}, {y}, {z}}, 1, 3), //1
-				new Matrix(new float[][] {{x+w}, {y-h}, {z}}, 1, 3), //2
-				new Matrix(new float[][] {{x}, {y-h}, {z}}, 1, 3), //3
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z}}), //0
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z}}), //1
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z}}), //2
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z}}), //3
 
-				new Matrix(new float[][] {{x}, {y}, {z+d}}, 1, 3), //4
-				new Matrix(new float[][] {{x+w}, {y}, {z+d}}, 1, 3), //5
-				new Matrix(new float[][] {{x+w}, {y-h}, {z+d}}, 1, 3), //6
-				new Matrix(new float[][] {{x}, {y-h}, {z+d}}, 1, 3), //7
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z+d}}), //4
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z+d}}), //5
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z+d}}), //6
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z+d}}), //7
 		};
 		
 		for (Matrix m : pts) {
-//			Matrix result1 = Matrix.mult(rotX, m);
-			Matrix result = Matrix.mult(rotY, m);
+			Matrix result = Matrix.mult(rotX, m);
+			result = Matrix.mult(rotY, result);
+			result = Matrix.mult(rotZ, result);
+			float distance = 2f;
+			float a = 1 / (distance-result.getValues()[2][0]);
+			float b = 1 / (distance-result.getValues()[1][0]);
+			float c = 1 / (distance-result.getValues()[2][0]);
 			
-			float[][] values = m.getValues();
-			for (int i = 0; i < values.length; i++) {
-				for (int j = 0; j < values[i].length; j++) {
-					m.getValues()[i][j] = result.getValue(i, j);
-				}
-			}
-//			System.out.println("M: " + m.toString());
+			Matrix proj = new Matrix(2, 3, new float[][] 
+					{
+				{a, 0, 0},
+				{0, a, 0},
+					}
+					);
+//			System.out.println(result.toString());
+			Matrix projected = Matrix.mult(proj, result);
+			projected.mult(200);
+			System.out.println(projected.toString());
+
+			m.setValues(2, 1, projected.getValues());
 		}
 		pointsToVectors(pts);
 		updateLines();
@@ -124,12 +124,13 @@ public class Cube extends GameObject{
 	private void pointsToVectors(Matrix[] points) {
 		//Convert points to vectors
 		vPoints.clear();
+		
 		for (Matrix m : points) {
 			
 			float px, py, pz;
-			px = m.getValue(0, 0) + this.getTransform().position().getX() + 300;
-			py = m.getValue(1, 0) + this.getTransform().position().getY();
-			pz = m.getValue(2, 0);
+			px = m.getValues()[0][0] + 300;
+			py = m.getValues()[1][0] + 300;
+//			pz = m.getValues()[2][0];
 			vPoints.add(new Vector2<Float>(px, py));
 		}
 	}
@@ -151,5 +152,6 @@ public class Cube extends GameObject{
 		
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
+		addShape(Shapes.Arc(new Vector2<Float>(x+300-5, y+300-5), 10, 10), Color.blue, true);
 	}
 }

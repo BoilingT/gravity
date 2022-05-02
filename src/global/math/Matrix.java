@@ -2,166 +2,126 @@ package global.math;
 
 public class Matrix {
 	
-	private int C, R;
-	public int getC() {
-		return C;
+	protected int n, m; //rowsxcols
+	protected float[][] values;
+	
+	public int getN() {
+		return this.n;
+	}
+	
+	public int getM() {
+		return this.m;
+	}
+	
+	public float[][] getValues(){
+		return this.values;
+	}
+	
+	public void setValues(float[][] values) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				this.values[i][j] = values[i][j];
+			}
+		}
+	}
+	
+	public void setValues(int n, int m, float[][] values) {
+		this.n = n;
+		this.m = m;
+		this.values = new float[n][m];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				this.values[i][j] = values[i][j];
+			}
+		}
 	}
 
-	public int getR() {
-		return R;
-	}
-
-	private float[][] matrix;
-	
-	public float getValue(int x, int y) {
-		try {
-			return this.matrix[x][y];			
-		} catch (Exception e) {
-			System.out.println("Could not get matrix value at: [x: " + x + " y: " + y + "]");
-			System.out.println("Error on: " + this.toString());
-			throw e;
-		}
+	public Matrix(int n, int m) {
+		this.n = n;
+		this.m = m;
+		fillValues();
 	}
 	
-	public float[][] getValues() {
-		return this.matrix;
+	public Matrix(int n, int m, float[][] values) {
+		this.n = n;
+		this.m = m;
+		this.values = values;
 	}
 	
-	public Matrix(int C, int R) {
-		this.C = C;
-		this.R = R;
-		this.matrix = new float[C][R];
-		this.fill(0);
+	public void fillValues() {
+		values = new float[n][m];
+		fill2dArray(values, n, m, 0);
 	}
 	
-	public Matrix(int C, int R, float value) {
-		this.C = C;
-		this.R = R;
-		this.matrix = new float[C][R];
-		this.fill(value);
-	}
-	
-	public Matrix(float[][] values, int C, int R){
-		this.C = C;
-		this.R = R;
-		try {
-			this.setValues(values, C, R);			
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-	
-	public void fill(float value) {
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				matrix[i][j] = value;
-			}
-		}
-	}
-	
-	public void setValues(float[][] values, int C, int R) {
-		this.C = C;
-		this.R = R;
-		matrix = new float[R][C];
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				matrix[i][j] = values[i][j];
-			}
-		}
-	}
-	
-	public void set(Matrix m) {
-		this.C = m.getC();
-		this.R = m.getR();
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				matrix[i][j] = m.getValue(i, j);
-			}
-		}
-	}
-	
-	public void set(int x, int y, float value) {
-		this.matrix[x][y] = value;
-	}
-	
-	public static Matrix transpose(Matrix m) {
-		Matrix tMatrix = new Matrix(m.R, m.C);
-		
-		for (int i = 0; i < m.C; i++) {
-			for (int j = 0; j < m.R; j++) {
-				tMatrix.set(j, i, m.getValue(i, j));
-			}
-		}
-		
-		return tMatrix;
-	}
-	
-	public Matrix transpose() {
-		Matrix tMatrix = new Matrix(R, C);
-		
-		for (int i = 0; i < C; i++) {
-			for (int j = 0; j < R; j++) {
-				float value = this.getValue(i, j);
-				tMatrix.set(j, i, value);
-			}
-		}
-		this.C = tMatrix.C;
-		this.R = tMatrix.R;
-		this.matrix = tMatrix.getValues();
-		return this;
-	}
 	
 	public static Matrix mult(Matrix m1, Matrix m2) {
-		//C1 == R2
-		if(m1.C != m2.R) {
+		if(m1 == null || m2 == null) return null;
+		if(m1.m != m2.n) {
 			System.out.println("The number of collumns in matrix A must match the number of rows in matrix B");
-			System.out.println(m1.C + " != " + m2.R);
+			System.out.println("Matrix A: " + m1.toString() + "\n Matrix B: "  + m2.toString() + "\n Can not be done");
+			System.out.println(m1.n + " != " + m2.m);
 			return null;
-		}		
-		Matrix resMatrix = new Matrix(m1.R, m2.C);
+		}
 		
-			for (int y = 0; y < resMatrix.R; y++) {
-				for (int x = 0; x < resMatrix.C; x++) {
+		Matrix product = new Matrix(m1.n, m2.m);
+//		System.out.println("Product size: " + product.getN() + "x" + product.getM());
+		
+		for (int y = 0; y < product.n; y++) {//3
+			for (int x = 0; x < product.m; x++) {//2
 				//Calculate dot product
 				float value = 0;
-				for (int i = 0; i < m1.C; i++) {
-//					System.out.print("+");
-					float m1V = m1.getValue(x, i);
-					float m2V = m2.getValue(i, y);
+				for (int i = 0; i < m1.m; i++) {
+					float m1V = m1.getValues()[y][i];
+					float m2V = m2.getValues()[i][x];
 					value += m1V * m2V;
 //					System.out.print(" (" + m1V + "*" + m2V+ ") ");
 				}
-//				System.out.println("");
-				resMatrix.set(x, y, value);					
+				product.getValues()[y][x] = value;		
+			}
+//			System.out.println("");
+		}
+		
+		return product;
+	}
+	
+	public Matrix mult(float scaler) {
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				this.values[i][j]*=scaler;
 			}
 		}
-//		System.out.println(resMatrix.toString());
-		return resMatrix;
+		return this;
 	}
 	
-	public Matrix mult(Matrix m) {
-		return Matrix.mult(this, m);
+	private void fill2dArray(float[][] arr, int r, int c, float value) {
+		for (int i = 0; i < r; i++) {
+			for (int j = 0; j < c; j++) {
+				arr[i][j] = value;
+			}
+		}
 	}
+	
 	
 	public String toString() {
-		String res = "[\n";
+		String res = "[";
 		
-		for (int i = 0; i < matrix.length; i++) {
+		for (int i = 0; i < values.length; i++) {
 			res += "   ";
-			for (int j = 0; j < matrix[i].length; j++) {
-				res += this.getValue(i, j);
-				if(j > matrix[i].length-1) {
+			for (int j = 0; j < values[i].length; j++) {
+				res += values[i][j];
+				if(j > values[i].length-1) {
 					res += ", ";					
-				}else if(j < matrix[i].length-1){
+				}else if(j < values[i].length-1){
 					res += " ";
 				}
 			}
-			if(i < matrix.length-1) {
+			if(i < values.length-1) {
 				res += "\n";				
 			}
 		}
 		
-		res += "\n]";		
+		res += "]";		
 		return res;
 	}
 }
