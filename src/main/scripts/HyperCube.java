@@ -137,11 +137,10 @@ public class HyperCube extends GameObject{
 //					{0, 0, 0, 1}
 //					}
 //			), result);
-			float distance = 2f;
-			float distance2 = 2f;
+			float distance = 1.5f;
 
 			float a = 1 / (distance-result.getValues()[2][0]); //z
-			float b = 1 / (distance2-result.getValues()[3][0]); //w
+			float b = 1 / (distance-result.getValues()[3][0]); //w
 			
 			Matrix proj2d = new Matrix(3, 3, new float[][] 
 				{
@@ -225,10 +224,10 @@ public class HyperCube extends GameObject{
 		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), vPoints.get(2+4).getZ(), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), vPoints.get(3+4).getZ(), Color.green, false);
 				
-		addShape(Shapes.Arc(new Vector2<Float>(x+500-5, y+350-5), 10, 10), Color.blue, true);
+//		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
 		
 		for (Vector3<Float> values : vPoints) {
-			addShape(Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.blue, true);
+			addShape(Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.RED, true);
 		}
 	}
 }

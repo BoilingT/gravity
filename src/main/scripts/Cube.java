@@ -145,6 +145,6 @@ public class Cube extends GameObject{
 		
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
-		addShape(Shapes.Arc(new Vector2<Float>(x+500-5, y+350-5), 10, 10), Color.blue, true);
+//		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
 	}
 }
