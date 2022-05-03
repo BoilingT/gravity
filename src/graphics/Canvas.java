@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -78,24 +79,27 @@ public class Canvas extends JPanel implements Runnable{
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setStroke(new BasicStroke(3, 1,1));
 		drawer.setGraphics2D(g);
 		if (drawer.isNull()) {
 			System.out.println("Graphics isn't set");
 			return;
 		}
-		
 		Drawing drawing = Drawing.getInstance();
 		try {
 			if (drawing != null) {
+				
 				drawObjects(drawing.getObjects());
 				if (drawing.getCollections() != null) {
 					for (ObjectCollection collection : drawing.getCollections()) {
+						if(collection.getObjects().size() <= 0) continue;
 						drawObjects(collection.getObjects());
 					}
 				}
 			}			
 		} catch (Exception e) {
 			System.out.println("Could not draw object");
+			e.printStackTrace();
 		}
 	}
 	

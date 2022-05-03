@@ -21,8 +21,8 @@ public class Cube extends GameObject{
 		this.w = w;
 		this.h = h;
 		this.d = d;
-		this.x = this.getTransform().position().getX();
-		this.y = this.getTransform().position().getY();
+		this.x = x;
+		this.y = y;
 		this.z = z;
 		points = new Matrix[] {
 				new Matrix(3, 1, new float[][] {{x}, {y}, {z}}), //0
@@ -79,10 +79,6 @@ public class Cube extends GameObject{
 				}
 		);
 		
-		
-		x = this.getTransform().position().getX();
-		y = this.getTransform().position().getY();
-		
 		Matrix[] pts = new Matrix[] {
 				new Matrix(3, 1, new float[][] {{x}, {y}, {z}}), //0
 				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z}}), //1
@@ -96,23 +92,22 @@ public class Cube extends GameObject{
 		};
 		
 		for (Matrix m : pts) {
-			Matrix result = Matrix.mult(rotX, m);
-			result = Matrix.mult(rotY, result);
-			result = Matrix.mult(rotZ, result);
+			Matrix result = Matrix.mult(rotY, m);
+//			result = Matrix.mult(rotY, result);
+//			result = Matrix.mult(rotZ, result);
 			float distance = 2f;
 			float a = 1 / (distance-result.getValues()[2][0]);
 			float b = 1 / (distance-result.getValues()[1][0]);
 			float c = 1 / (distance-result.getValues()[2][0]);
 			
-			Matrix proj = new Matrix(2, 3, new float[][] 
-					{
+			Matrix proj2d = new Matrix(2, 3, new float[][] 
+				{
 				{a, 0, 0},
 				{0, a, 0},
-					}
-					);
+					});
 //			System.out.println(result.toString());
-			Matrix projected = Matrix.mult(proj, result);
-			projected.mult(500);
+			Matrix projected = Matrix.mult(proj2d, result);
+			projected.mult(100);
 
 			m.setValues(2, 1, projected.getValues());
 		}
@@ -129,7 +124,6 @@ public class Cube extends GameObject{
 			float px, py, pz;
 			px = m.getValues()[0][0] + 500;
 			py = m.getValues()[1][0] + 350;
-//			pz = m.getValues()[2][0];
 			vPoints.add(new Vector2<Float>(px, py));
 		}
 	}
@@ -151,6 +145,6 @@ public class Cube extends GameObject{
 		
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
-//		addShape(Shapes.Arc(new Vector2<Float>(x+500-5, y+350-5), 10, 10), Color.blue, true);
+		addShape(Shapes.Arc(new Vector2<Float>(x+500-5, y+350-5), 10, 10), Color.blue, true);
 	}
 }

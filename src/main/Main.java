@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 import windows.console.ConsoleWindow;
 import windows.main.MainWindow;
 
@@ -12,8 +14,20 @@ public class Main {
 	private static ConsoleWindow consoleWindow;
 	
 	public static void main(String[] args) {
+		
 		consoleWindow = ConsoleWindow.getInstance();
 		consoleWindow.init(null);
 		mainWindow.init(new Object[] {consoleWindow});
 	}
+	
+//	private static void addValue(int value) {
+//		if(values.size() <= 0) values.add(value);
+//		if(value >= values.get(values.get(values.size()-1))) {
+//			values.add(value);			
+//		}else if(value <= values.get(values.get(0))) {
+//			values.add(0, value);
+//		}
+//	}
+	
+
 }

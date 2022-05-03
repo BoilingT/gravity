@@ -34,7 +34,9 @@ public class DrawHandler{
 	private Player player = new Player();
 	private Border border = new Border(1000, 700, 1, Color.black);
 	private Ball ball = new Ball();
+	private HyperCube hyperCube = new HyperCube(-0.5f, 0.5f, -0.5f, 0.5f, 1, 1, 1);
 	private Cube cube = new Cube(-0.5f, 0.5f, -0.5f, 1, 1, 1);
+//	private Cube cube = new Cube(-0.5f, 0f, 0f, 1, 1, 1);
 	
 	public DrawHandler() {
 		draw = GraphicGeometry.getInstance();
@@ -51,6 +53,7 @@ public class DrawHandler{
 		KeyEvent event = (KeyEvent) e;
 		int key = event.getKeyCode();
 		System.out.println("hej");
+		n++;
 
 //		for (GameObject obj : GameObjects) {
 //			obj.update();
@@ -98,7 +101,6 @@ public class DrawHandler{
 		for (GameObject obj : GameObjects) {
 			obj.init();
 		}
-		cube.rotateX(Math.PI/180*45);
 		console.cout("Setup done!");
 	}
 	
@@ -114,6 +116,7 @@ public class DrawHandler{
 //			b.getTransform().position().set(x, y);
 //			GameObjects.add(b);
 //		}		
+		GameObjects.add(hyperCube);
 		GameObjects.add(cube);
 	}
 	
@@ -132,7 +135,7 @@ public class DrawHandler{
 	//Execution
 	public void update() {
 		cubeUpdate();
-		ballCollisonUpdate();
+//		ballCollisonUpdate();
 		gameObjectUpdate();
 		sleep((int)(1/144f*1000));
 	}
@@ -145,7 +148,9 @@ public class DrawHandler{
 	
 	float n = 0;
 	private void cubeUpdate() {
-		cube.rotateX(Math.PI/180*(n+=0.5f));
+		hyperCube.rotateX(Math.PI/180*(n+=0.4f));
+//		cube.rotateX(Math.PI/180*(20));
+//		cube.rotateX(Math.PI/180*(n+=0.2f));
 	}
 	
 	float force = 0.9f;

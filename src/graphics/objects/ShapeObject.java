@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 import global.math.Vector2;
+import global.math.Vector3;
 
 public class ShapeObject {
 
@@ -43,7 +44,7 @@ public class ShapeObject {
 		return shape;
 	}
 	
-	public final Vector2<Float> getPos() {
+	public final Vector3<Float> getPos() {
 		return transform.position();
 	}
 	
@@ -114,8 +115,5 @@ public class ShapeObject {
 	
 	public void update() {
 		//Check if the transform has changed then make a new shape with that transform
-		
-		
-	}
-	
+	}	
 }

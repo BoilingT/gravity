@@ -76,7 +76,7 @@ public class Shapes {
 		g.setRenderingHint(
 			    RenderingHints.KEY_ANTIALIASING,
 			    RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setColor(color);
+		g.setColor(Color.white);
 		g.draw(s);
 	}
 	

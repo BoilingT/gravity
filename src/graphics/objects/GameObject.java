@@ -2,8 +2,10 @@ package graphics.objects;
 
 import java.awt.Color;
 import java.awt.Shape;
+import java.util.ArrayList;
 
 import global.math.Vector2;
+import global.math.Vector3;
 import graphics.Canvas;
 
 public abstract class GameObject{
@@ -88,7 +90,28 @@ public abstract class GameObject{
 	}
 	
 	public void addShape(Shape shape, Color color, boolean fill) {
-		buildingBlocks.add(new ShapeObject(shape, color, fill));
+		ShapeObject obj = new ShapeObject(shape, color, fill);
+		buildingBlocks.add(obj);			
+	}
+	
+	public void addShape(Shape shape, float z, Color color, boolean fill) {
+		ShapeObject obj = new ShapeObject(shape, color, fill);
+				
+		Vector3<Float> pos = obj.getPos();
+		obj.getPos().set(pos.getX(), pos.getY(), z);
+		ArrayList<ShapeObject> values = buildingBlocks().getObjects();
+		
+		if(values.size() <= 0) {
+			values.add(obj);
+			return;
+		}
+		if(z >= values.get(values.size()-1).getPos().getZ()) {
+			values.add(obj);			
+		}else if(z <= values.get(0).getPos().getZ()) {
+			values.add(0, obj);
+		}else {
+			values.add(obj);
+		}
 	}
 	
 	public abstract void init();
