@@ -182,47 +182,47 @@ public class HyperCube extends GameObject{
 	private void updateLines() {
 		buildingBlocks().getObjects().clear();
 		
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(1)), vPoints.get(0).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(1), vPoints.get(2)), vPoints.get(1).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(2), vPoints.get(3)), vPoints.get(2).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(3), vPoints.get(0)), vPoints.get(3).getZ(), Color.red, false);
+		addShape(Shapes.Line(vPoints.get(0), vPoints.get(1)), vPoints.get(0).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1), vPoints.get(2)), vPoints.get(1).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2), vPoints.get(3)), vPoints.get(2).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3), vPoints.get(0)), vPoints.get(3).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), vPoints.get(0+4).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), vPoints.get(1+4).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), vPoints.get(2+4).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), vPoints.get(3+4).getZ(), Color.blue, false);
+		addShape(Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), vPoints.get(0+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), vPoints.get(1+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), vPoints.get(2+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), vPoints.get(3+4).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(0+4)), vPoints.get(0).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(3), vPoints.get(3+4)), vPoints.get(3).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(0), vPoints.get(0+4)), vPoints.get(0).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3), vPoints.get(3+4)), vPoints.get(3).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), vPoints.get(1).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), vPoints.get(2).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), vPoints.get(1).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), vPoints.get(2).getZ(), Color.white, false);
 		////////////////////////////////////////////////////
-		addShape(Shapes.Line(vPoints.get(0+8), vPoints.get(1+8)), vPoints.get(0+8).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(1+8), vPoints.get(2+8)), vPoints.get(1+8).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(2+8), vPoints.get(3+8)), vPoints.get(2+8).getZ(), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(3+8), vPoints.get(0+8)), vPoints.get(3+8).getZ(), Color.red, false);
+		addShape(Shapes.Line(vPoints.get(0+8), vPoints.get(1+8)), vPoints.get(0+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1+8), vPoints.get(2+8)), vPoints.get(1+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2+8), vPoints.get(3+8)), vPoints.get(2+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3+8), vPoints.get(0+8)), vPoints.get(3+8).getZ(), Color.white, false);
 		
-  		addShape(Shapes.Line(vPoints.get(0+4+8), vPoints.get(1+4+8)), vPoints.get(0+4+8).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(1+4+8), vPoints.get(2+4+8)), vPoints.get(1+4+8).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(2+4+8), vPoints.get(3+4+8)), vPoints.get(2+4+8).getZ(), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(3+4+8), vPoints.get(0+4+8)), vPoints.get(3+4+8).getZ(), Color.blue, false);
+  		addShape(Shapes.Line(vPoints.get(0+4+8), vPoints.get(1+4+8)), vPoints.get(0+4+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1+4+8), vPoints.get(2+4+8)), vPoints.get(1+4+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2+4+8), vPoints.get(3+4+8)), vPoints.get(2+4+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3+4+8), vPoints.get(0+4+8)), vPoints.get(3+4+8).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(0+8), vPoints.get(0+4+8)), vPoints.get(0+8).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(3+8), vPoints.get(3+4+8)), vPoints.get(3+8).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(0+8), vPoints.get(0+4+8)), vPoints.get(0+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3+8), vPoints.get(3+4+8)), vPoints.get(3+8).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(1+8), vPoints.get(1+4+8)), vPoints.get(1+8).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(2+8), vPoints.get(2+4+8)), vPoints.get(2+8).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(1+8), vPoints.get(1+4+8)), vPoints.get(1+8).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2+8), vPoints.get(2+4+8)), vPoints.get(2+8).getZ(), Color.white, false);
 		
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(8)), vPoints.get(0).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(1), vPoints.get(9)), vPoints.get(1).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(2), vPoints.get(10)), vPoints.get(2).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(3), vPoints.get(11)), vPoints.get(3).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(0), vPoints.get(8)), vPoints.get(0).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1), vPoints.get(9)), vPoints.get(1).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2), vPoints.get(10)), vPoints.get(2).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3), vPoints.get(11)), vPoints.get(3).getZ(), Color.white, false);
 
-		addShape(Shapes.Line(vPoints.get(0+4), vPoints.get(8+4)), vPoints.get(0+4).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(1+4), vPoints.get(9+4)), vPoints.get(1+4).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), vPoints.get(2+4).getZ(), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), vPoints.get(3+4).getZ(), Color.green, false);
+		addShape(Shapes.Line(vPoints.get(0+4), vPoints.get(8+4)), vPoints.get(0+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(1+4), vPoints.get(9+4)), vPoints.get(1+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), vPoints.get(2+4).getZ(), Color.white, false);
+		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), vPoints.get(3+4).getZ(), Color.white, false);
 				
 //		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
 		
