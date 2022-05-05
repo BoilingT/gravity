@@ -35,7 +35,7 @@ public class DrawHandler{
 	private Border border = new Border(1000, 700, 1, Color.black);
 	private Ball ball = new Ball();
 	private HyperCube hyperCube = new HyperCube(-0.5f, 0.5f, -0.5f, 0.5f, 1, 1, 1);
-	private Cube cube = new Cube(-0.5f, 0.5f, -0.5f, 1, 1, 1);
+	private Cube cube = new Cube(1.5f, 0.5f, -0.5f, 1, 1, 1);
 //	private Cube cube = new Cube(-0.5f, 0f, 0f, 1, 1, 1);
 	
 	public DrawHandler() {
@@ -148,7 +148,9 @@ public class DrawHandler{
 	
 	float n = 0;
 	private void cubeUpdate() {
-		hyperCube.rotateX(Math.PI/180*(n+=0.3f));
+		hyperCube.rotateX(Math.PI/180*(1),Math.PI/180*mousePos.getX());
+//		hyperCube.rotateX(Math.PI/180*(n));
+//		cube.rotateX(Math.PI/180*(n+=0.3f));
 //		cube.rotateX(Math.PI/180*(20));
 //		cube.rotateX(Math.PI/180*(n+=0.2f));
 		if(n > 360) n = 0;

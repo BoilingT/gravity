@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import global.math.Matrix;
 import global.math.Vector2;
+import global.math.Vector3;
 import graphics.Shapes;
 import graphics.objects.GameObject;
 import graphics.objects.ShapeObject;
@@ -93,21 +94,24 @@ public class Cube extends GameObject{
 		
 		for (Matrix m : pts) {
 			Matrix result = Matrix.mult(rotY, m);
-//			result = Matrix.mult(rotY, result);
 //			result = Matrix.mult(rotZ, result);
-			float distance = 2f;
-			float a = 1 / (distance-result.getValues()[2][0]);
-			float b = 1 / (distance-result.getValues()[1][0]);
-			float c = 1 / (distance-result.getValues()[2][0]);
-			
+			float distance = 1.8f;
+			float a = 1;
+			if(distance-result.getValues()[2][0] > 0) {
+				a = 1 / (distance-result.getValues()[2][0]);				
+			}else {
+				
+				a = Math.abs(1 / (distance-result.getValues()[2][0]));				
+				System.out.println("noll: " + result.getValues()[2][0]);
+			}
+			System.out.println(result.getValues()[2][0]);
 			Matrix proj2d = new Matrix(2, 3, new float[][] 
 				{
 				{a, 0, 0},
 				{0, a, 0},
 					});
-//			System.out.println(result.toString());
 			Matrix projected = Matrix.mult(proj2d, result);
-			projected.mult(100);
+			projected.mult(300);
 
 			m.setValues(2, 1, projected.getValues());
 		}
@@ -146,5 +150,9 @@ public class Cube extends GameObject{
 		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
 //		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
+		
+		for (Vector2<Float> values : vPoints) {
+			addShape(Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.white, true);
+		}
 	}
 }
