@@ -111,10 +111,10 @@ public class HyperCube extends GameObject{
 		
 		for (Matrix m : pts) {
 			Matrix result = Matrix.mult(rotW, m);
-//			result = Matrix.mult(rotZ, result);
+			result = Matrix.mult(rotZ, result);
 //			result = Matrix.mult(rotY, result);
 			float alpha = (float) -Math.PI/180f*90;
-			float beta = (float) -Math.PI/180f*110;
+			float beta = (float) Math.PI/180f*60;
 			result = Matrix.mult(new Matrix(4, 4, new float[][]{
 				{1, 0, 0, 0},
 				{0, (float)Math.cos(beta), (float)-Math.sin(beta), 0},
@@ -138,11 +138,12 @@ public class HyperCube extends GameObject{
 //					{0, 0, 0, 1}
 //					}
 //			), result);
-			float distance = 1.8f;
+			float distance = 3f;
 
-			float a = 1 / (distance-result.getValues()[2][0]); //z
-			float b = 1 / (distance-result.getValues()[3][0]); //w
-			
+			float a = distance / (distance-result.getValues()[2][0]); //z
+			float b = distance / (distance-result.getValues()[3][0]); //w
+//			a = 1 / (distance-result.getValues()[2][0]); //z
+//			a=1;
 			Matrix proj2d = new Matrix(3, 3, new float[][] 
 				{
 				{a, 0, 0},
@@ -159,7 +160,7 @@ public class HyperCube extends GameObject{
 //			System.out.println(result.toString());
 			Matrix projected = Matrix.mult(proj3d, result);
 			projected = Matrix.mult(proj2d, projected);
-			projected.mult(500);
+			projected.mult(300);
 
 			m.setValues(3, 1, projected.getValues());
 		}

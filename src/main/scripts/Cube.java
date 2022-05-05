@@ -95,13 +95,14 @@ public class Cube extends GameObject{
 		for (Matrix m : pts) {
 			Matrix result = Matrix.mult(rotY, m);
 //			result = Matrix.mult(rotZ, result);
-			float distance = 1.8f;
+			float distance = 3f;
 			float a = 1;
+
 			if(distance-result.getValues()[2][0] > 0) {
-				a = 1 / (distance-result.getValues()[2][0]);				
+				a = distance / (distance-result.getValues()[2][0]);				
 			}else {
 				
-				a = Math.abs(1 / (distance-result.getValues()[2][0]));				
+				a = Math.abs(distance / (distance-result.getValues()[2][0]));				
 				System.out.println("noll: " + result.getValues()[2][0]);
 			}
 			System.out.println(result.getValues()[2][0]);
@@ -111,7 +112,7 @@ public class Cube extends GameObject{
 				{0, a, 0},
 					});
 			Matrix projected = Matrix.mult(proj2d, result);
-			projected.mult(300);
+			projected.mult(100);
 
 			m.setValues(2, 1, projected.getValues());
 		}
