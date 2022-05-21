@@ -98,21 +98,36 @@ public class Cube extends GameObject{
 			float distance = 3f;
 			float a = 1;
 
+			Matrix projected = null;
 			if(distance-result.getValues()[2][0] > 0) {
 				a = distance / (distance-result.getValues()[2][0]);				
-			}else {
-				
-				a = Math.abs(distance / (distance-result.getValues()[2][0]));				
+				Matrix proj2d = new Matrix(2, 3, new float[][] 
+						{
+					{a, 0, 0},
+					{0, a, 0},
+						});
+				 projected = Matrix.mult(proj2d, result);
+			}else if(distance-result.getValues()[2][0] != 0){
+//				result.getValues()[2][0] = ;
+				a = distance / (distance-result.getValues()[2][0]);				
 				System.out.println("noll: " + result.getValues()[2][0]);
+				Matrix proj2d = new Matrix(2, 3, new float[][] 
+						{
+					{a, 0, 0},
+					{0, a, 0},
+						});
+//				float tempAngle = (float) Math.PI/180*180;
+//				result = Matrix.mult(new Matrix(3, 3, new float[][] 
+//						{
+//					{(float)Math.cos(tempAngle), 0, (float)Math.sin(tempAngle)},
+//					{0, 1, 0},
+//					{(float)-Math.sin(tempAngle), 0, (float)Math.cos(tempAngle)}
+//					}), result);
+//				result.mult(10);
+				projected = Matrix.mult(proj2d, result).mult(distance*100*a);
 			}
-			System.out.println(result.getValues()[2][0]);
-			Matrix proj2d = new Matrix(2, 3, new float[][] 
-				{
-				{a, 0, 0},
-				{0, a, 0},
-					});
-			Matrix projected = Matrix.mult(proj2d, result);
 			projected.mult(100);
+			System.out.println("Result: \n" + result.toString() + " a: " + a + "\nprojected: \n" + projected.toString());
 
 			m.setValues(2, 1, projected.getValues());
 		}
@@ -122,38 +137,46 @@ public class Cube extends GameObject{
 	
 	private void pointsToVectors(Matrix[] points) {
 		//Convert points to vectors
-		vPoints.clear();
-		
+		int n = 0;
 		for (Matrix m : points) {
 			
 			float px, py, pz;
 			px = m.getValues()[0][0] + 500;
 			py = m.getValues()[1][0] + 350;
-			vPoints.add(new Vector2<Float>(px, py));
+			setPoint(n++, new Vector2<Float>(px, py));
+		}
+	}
+	
+	private void setPoint(int index, Vector2<Float> v) {
+		if(vPoints.size() <= 0) vPoints.add(v);
+		if(vPoints.size()-1 >= index) {
+			vPoints.set(index, v);			
+		}else {
+			vPoints.add(index, v);			
 		}
 	}
 	
 	private void updateLines() {
-		buildingBlocks().getObjects().clear();
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(1)), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(1), vPoints.get(2)), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(2), vPoints.get(3)), Color.red, false);
-		addShape(Shapes.Line(vPoints.get(3), vPoints.get(0)), Color.red, false);
+		setShapeObject(0, Shapes.Line(vPoints.get(0), vPoints.get(1)), Color.red, false);
+		setShapeObject(1, Shapes.Line(vPoints.get(1), vPoints.get(2)), Color.red, false);
+		setShapeObject(2, Shapes.Line(vPoints.get(2), vPoints.get(3)), Color.red, false);
+		setShapeObject(3, Shapes.Line(vPoints.get(3), vPoints.get(0)), Color.red, false);
 		
-		addShape(Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), Color.blue, false);
-		addShape(Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), Color.blue, false);
+		setShapeObject(4, Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), Color.blue, false);
+		setShapeObject(5, Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), Color.blue, false);
+		setShapeObject(6, Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), Color.blue, false);
+		setShapeObject(7, Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), Color.blue, false);
 		
-		addShape(Shapes.Line(vPoints.get(0), vPoints.get(0+4)), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(3), vPoints.get(3+4)), Color.green, false);
+		setShapeObject(8, Shapes.Line(vPoints.get(0), vPoints.get(0+4)), Color.green, false);
+		setShapeObject(9, Shapes.Line(vPoints.get(3), vPoints.get(3+4)), Color.green, false);
 		
-		addShape(Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
-		addShape(Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
+		setShapeObject(10, Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
+		setShapeObject(11, Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
 //		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
 		
+		int n = 12;
 		for (Vector2<Float> values : vPoints) {
-			addShape(Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.white, true);
+			setShapeObject(n++, Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.white, true);
 		}
 	}
 }

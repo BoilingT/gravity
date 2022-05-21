@@ -114,6 +114,26 @@ public abstract class GameObject{
 		}
 	}
 	
+	public void setShapeObject(int index, Shape shape, float z, Color color, boolean fill) {
+		ShapeObject shapeObject = new ShapeObject(shape, color, fill);
+		if(buildingBlocks().getObjects().size() <= 0) buildingBlocks().getObjects().add(shapeObject);
+		if(buildingBlocks().getObjects().size()-1 >= index) {
+			buildingBlocks().getObjects().set(index, shapeObject);			
+		}else {
+			buildingBlocks().getObjects().add(index, shapeObject);			
+		}
+	}
+	
+	public void setShapeObject(int index, Shape shape, Color color, boolean fill) {
+		ShapeObject shapeObject = new ShapeObject(shape, color, fill);
+		if(buildingBlocks().getObjects().size() <= 0) buildingBlocks().getObjects().add(shapeObject);
+		if(buildingBlocks().getObjects().size()-1 >= index) {
+			buildingBlocks().getObjects().set(index, shapeObject);			
+		}else {
+			buildingBlocks().getObjects().add(index, shapeObject);			
+		}
+	}
+	
 	public abstract void init();
 	
 	public void update() {

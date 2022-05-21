@@ -2,8 +2,7 @@ package global.math;
 
 public class Vector2<T> {
 	
-	private T x;
-	private T y;
+	private T x, y;
 	
 	public Vector2() {
 		this.x = null;
