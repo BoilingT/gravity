@@ -15,79 +15,21 @@ import graphics.objects.ShapeObject;
 public class HyperCube extends GameObject{
 
 	ArrayList<Vector3<Float>> vPoints = new ArrayList<>();
-	private float W, H, D, x, y, z, w;
-	
+	private Matrix[] pts;
+//	private final float W, H, D, x, y, z, w;
+
+		
 	public HyperCube(float x, float y,float z, float w, float W, float H, float D) {
 		this.getTransform().position().set(x, y);
-		this.W = W;
-		this.H = H;
-		this.D = D;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.w = w;
-		
-		for (int i = 0; i < 24; i++) {
-			vPoints.add(new Vector3<Float>(0f, 0f, 0f));			
-		}
-	}
-	
-	@Override
-	public void init() {				
-			updateLines();
-	}
-	
-	public void rotate(float angle) {
-		for (ShapeObject obj : buildingBlocks().getObjects()) {
-			obj.rotate(angle, W/2, H/2);
-		}
-	}
-	
-	public void rotateX(double angle, double viewAngle) {
-		Matrix rotX = new Matrix(4, 4, new float[][] 
-				{
-				{1, 0, 0, 0},
-				{0, (float)Math.cos(angle), (float)-Math.sin(angle), 0},
-				{0, (float) Math.sin(angle), (float)Math.cos(angle), 0},
-				{0, 0, 0, 1}
-				}
-		);
-		
-		Matrix rotZ = new Matrix(4, 4, new float[][]{
-				{(float)Math.cos(angle), (float)-Math.sin(angle), 0, 0},
-				{(float)Math.sin(angle), (float)Math.cos(angle), 0, 0},
-				{0, 0, 1, 0},
-				{0, 0, 0, 1}
-			});
-		
-		Matrix rotY = new Matrix(4, 4, new float[][] 
-				{
-				{(float)Math.cos(angle), 0, (float)Math.sin(angle), 0},
-				{0, 1, 0, 0},
-				{(float)-Math.sin(angle), 0, (float)Math.cos(angle), 0},
-				{0, 0, 0, 1}
-				}
-		);
-		
-		Matrix rotW = new Matrix(4, 4, new float[][] 
-				{
-					{1, 0, 0, 0},
-					{0, 1, 0, 0},
-					{0, 0, (float)Math.cos(angle), (float)-Math.sin(angle)},
-					{0, 0, (float)Math.sin(angle), (float)Math.cos(angle)}
-				}
-		);
-		
-		Matrix rotXW = new Matrix(4, 4, new float[][] 
-				{
-					{(float)Math.cos(angle), 0, 0, (float)-Math.sin(angle)},
-					{0, 1, 0, 0},
-					{0, 0, 1, 0},
-					{(float)Math.sin(angle), 0, 0, (float)Math.cos(angle)}
-				}
-		);
-		
-		Matrix[] pts = new Matrix[] {
+//		this.W = W;
+//		this.H = H;
+//		this.D = D;
+//		this.x = x;
+//		this.y = y;
+//		this.z = z;
+//		this.w = w;
+			
+		pts = new Matrix[] {
 				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {w}}), //0
 				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {w}}), //1
 				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z}, {w}}), //2
@@ -109,18 +51,103 @@ public class HyperCube extends GameObject{
 				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z+D}, {-w}}), //15
 		};
 		
-		for (Matrix m : pts) {
+		for (int i = 0; i < 24; i++) {
+			vPoints.add(new Vector3<Float>(0f, 0f, 0f));			
+		}
+	}
+	
+	@Override
+	public void init() {		
+		updateLines();
+		rotateX(0);
+	}
+	
+	public void rotate(float angle) {
+		for (ShapeObject obj : buildingBlocks().getObjects()) {
+//			obj.rotate(angle, W/2, H/2);
+		}
+	}
+	
+	public void rotateX(double angle) {
+		Matrix rotX = new Matrix(4, 4, new float[][] 
+				{
+				{1, 0, 0, 0},
+				{0, (float)Math.cos(angle), (float)-Math.sin(angle), 0},
+				{0, (float) Math.sin(angle), (float)Math.cos(angle), 0},
+				{0, 0, 0, 1}
+				}
+		);
+		Matrix rotZ = new Matrix(4, 4, new float[][]{
+				{(float)Math.cos(angle), (float)-Math.sin(angle), 0, 0},
+				{(float)Math.sin(angle), (float)Math.cos(angle), 0, 0},
+				{0, 0, 1, 0},
+				{0, 0, 0, 1}
+			});
+		
+		Matrix rotY = new Matrix(4, 4, new float[][] 
+				{
+				{(float)Math.cos(angle), 0, (float)Math.sin(angle), 0},
+				{0, 1, 0, 0},
+				{(float)-Math.sin(angle), 0, (float)Math.cos(angle), 0},
+				{0, 0, 0, 1}
+				}
+		);
+		angle*=2;
+		
+		Matrix rotW = new Matrix(4, 4, new float[][] 
+				{
+					{1, 0, 0, 0},
+					{0, 1, 0, 0},
+					{0, 0, (float)Math.cos(angle), (float)-Math.sin(angle)},
+					{0, 0, (float)Math.sin(angle), (float)Math.cos(angle)}
+				}
+		);
+		
+		Matrix rotXW = new Matrix(4, 4, new float[][] 
+				{
+					{(float)Math.cos(angle), 0, 0, (float)-Math.sin(angle)},
+					{0, 1, 0, 0},
+					{0, 0, 1, 0},
+					{(float)Math.sin(angle), 0, 0, (float)Math.cos(angle)}
+				}
+		);
+		
+//		pts = new Matrix[] {
+//				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {w}}), //0
+//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {w}}), //1
+//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z}, {w}}), //2
+//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z}, {w}}), //3
+//
+//				new Matrix(4, 1, new float[][] {{x}, {y}, {z+D}, {w}}), //4
+//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z+D}, {w}}), //5
+//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z+D}, {w}}), //6
+//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z+D}, {w}}), //7
+//				//
+//				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {-w}}), //8
+//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {-w}}), //9
+//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z}, {-w}}), //10
+//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z}, {-w}}), //11
+//
+//				new Matrix(4, 1, new float[][] {{x}, {y}, {z+D}, {-w}}), //12
+//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z+D}, {-w}}), //13
+//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z+D}, {-w}}), //14
+//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z+D}, {-w}}), //15
+//		};
+		
+		System.out.println("BEFORE pointsResult 1:\n" + pts[0].toString());
+		Matrix[] projectedPoints = new Matrix[pts.length];
+		for (int i = 0; i < pts.length; i++) {
+			Matrix m = pts[i];
 			Matrix result = Matrix.mult(rotW, m);
+
+			if(result == null) {
+				System.out.println("result is null");
+				return;
+			}
 			result = Matrix.mult(rotZ, result);
 //			result = Matrix.mult(rotY, result);
 			float alpha = (float) -Math.PI/180f*90;
-			float beta = (float) Math.PI/180f*60;
-			result = Matrix.mult(new Matrix(4, 4, new float[][]{
-				{1, 0, 0, 0},
-				{0, (float)Math.cos(beta), (float)-Math.sin(beta), 0},
-				{0, (float) Math.sin(beta), (float)Math.cos(beta), 0},
-				{0, 0, 0, 1}
-			}), result);
+			
 //			result = Matrix.mult(new Matrix(4, 4, new float[][] 
 //					{
 //					{(float)Math.cos(alpha), 0, (float)Math.sin(alpha), 0},
@@ -138,33 +165,52 @@ public class HyperCube extends GameObject{
 //					{0, 0, 0, 1}
 //					}
 //			), result);
+
+			pts[i].setValues(4, 1, result.getValues());
+			
+			float beta = (float) Math.PI/180f*60;
+			result = Matrix.mult(new Matrix(4, 4, new float[][]{
+				{1, 0, 0, 0},
+				{0, (float)Math.cos(beta), (float)-Math.sin(beta), 0},
+				{0, (float) Math.sin(beta), (float)Math.cos(beta), 0},
+				{0, 0, 0, 1}
+			}), result);
+			
 			float distance = 3f;
 
 			float a = distance / (distance-result.getValues()[2][0]); //z
 			float b = distance / (distance-result.getValues()[3][0]); //w
 //			a = 1 / (distance-result.getValues()[2][0]); //z
 //			a=1;
-			Matrix proj2d = new Matrix(3, 3, new float[][] 
+			Matrix proj2d = new Matrix(4, 4, new float[][] 
 				{
-				{a, 0, 0},
-				{0, a, 0},
-				{0, 0, 1}
+				{a, 0, 0, 0},
+				{0, a, 0, 0},
+				{0, 0, 1, 0},
+				{0, 0, 0, 1}
 					});
 			
-			Matrix proj3d = new Matrix(3, 4, new float[][] 
-					{
-					{b, 0, 0, 0},
-					{0, b, 0, 0},
-					{0, 0, b, 0},
-						});
-//			System.out.println(result.toString());
-			Matrix projected = Matrix.mult(proj3d, result);
-			projected = Matrix.mult(proj2d, projected);
-			projected.mult(300);
-
-			m.setValues(3, 1, projected.getValues());
+			Matrix proj3d = new Matrix(4, 4, new float[][] 
+				{
+				{b, 0, 0, 0},
+				{0, b, 0, 0},
+				{0, 0, b, 0},
+				{0, 0, 0, 1},
+					});
+			projectedPoints[i] = Matrix.mult(proj3d, result); //4d to 3d
+			if(projectedPoints[i] == null) {
+				System.out.println("projected is null");
+				return;
+			}
+			
+			projectedPoints[i] = Matrix.mult(proj2d, projectedPoints[i]); //3d to 2d
+			if(projectedPoints[i] == null) {
+				System.out.println("projected2d is null");
+				return;
+			}
 		}
-		pointsToVectors(pts);
+		System.out.println("AFTER: pointsResult 1:\n" + pts[0].toString());
+		pointsToVectors(projectedPoints);
 		updateLines();
 	};
 	
@@ -172,11 +218,11 @@ public class HyperCube extends GameObject{
 		//Convert points to vectors
 //		vPoints.clear();
 		for (int i = 0; i < points.length; i++) {
-			Matrix m = points[i];
+			Matrix m = points[i].mult(300);
 			float px, py, pz;
-			px = m.getValues()[0][0] + 500;
-			py = m.getValues()[1][0] + 350;
-			pz = m.getValues()[2][0];
+			px = m.getValues()[0][0] + 500; //x
+			py = m.getValues()[1][0] + 350; //y
+			pz = m.getValues()[2][0]; 		//z
 			vPoints.set(i, new Vector3<Float>(px, py, pz));
 		}
 	}

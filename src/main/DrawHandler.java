@@ -117,7 +117,7 @@ public class DrawHandler{
 //			GameObjects.add(b);
 //		}		
 		GameObjects.add(hyperCube);
-		GameObjects.add(cube);
+//		GameObjects.add(cube);
 	}
 	
 	public void drawGameObjects() {
@@ -150,12 +150,13 @@ public class DrawHandler{
 	
 	float n = 0;
 	private void cubeUpdate() {
-		hyperCube.rotateX(Math.PI/180*(n),Math.PI/180*mousePos.getX());
-//		hyperCube.rotateX(Math.PI/180*(n+=0.3f), Math.PI/180*mousePos.getX());
+//		hyperCube.rotateX(Math.PI/180*(n),Math.PI/180*mousePos.getX());
+		hyperCube.rotateX(Math.PI/180*-0.2f);
+//		hyperCube.rotateX(0);
 //		cube.rotateX(Math.PI/180*(n));
 //		cube.rotateX(Math.PI/180*(20));
-		cube.rotateX(Math.PI/180*(n+=0.4f));
-		if(n > 360) n = 0;
+//		cube.rotateX(Math.PI/180*(n+=0.4f));
+		if(n < -360) n = 0;
 	}
 	
 	float force = 0.9f;

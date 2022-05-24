@@ -45,7 +45,8 @@ public class Matrix {
 	public Matrix(int n, int m, float[][] values) {
 		this.n = n;
 		this.m = m;
-		this.values = values;
+		this.values = new float[n][m];
+		this.setValues(values);
 	}
 	
 	public void fillValues() {
@@ -58,7 +59,7 @@ public class Matrix {
 		if(m1 == null || m2 == null) return null;
 		if(m1.m != m2.n) {
 			System.out.println("The number of collumns in matrix A must match the number of rows in matrix B");
-			System.out.println("Matrix A: " + m1.toString() + "\n Matrix B: "  + m2.toString() + "\n Can not be done");
+			System.out.println("Matrix A: \n" + m1.toString() + "\n Matrix B: \n"  + m2.toString() + "\n Can not be done");
 			System.out.println(m1.n + " != " + m2.m);
 			return null;
 		}
@@ -85,13 +86,13 @@ public class Matrix {
 	}
 	
 	public Matrix mult(float scaler) {
-		
+		Matrix result = new Matrix(this.n, this.m);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
-				this.values[i][j]*=scaler;
+				result.values[i][j] = this.values[i][j] * scaler;
 			}
 		}
-		return this;
+		return result;
 	}
 	
 	private void fill2dArray(float[][] arr, int r, int c, float value) {
@@ -107,10 +108,10 @@ public class Matrix {
 		String res = "[";
 		
 		for (int i = 0; i < values.length; i++) {
-			res += "   ";
+			res += "";
 			for (int j = 0; j < values[i].length; j++) {
 				res += values[i][j];
-				if(j > values[i].length-1) {
+				if(j >= values[i].length-1) {
 					res += ", ";					
 				}else if(j < values[i].length-1){
 					res += " ";
