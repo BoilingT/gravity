@@ -14,7 +14,7 @@ import graphics.Shapes;
 import graphics.objects.GameObject;
 import graphics.objects.ObjectCollection;
 import graphics.objects.ShapeObject;
-import main.scripts.*;
+import main.GameObjects.*;
 import windows.console.ConsoleWindow;
 
 public class DrawHandler{

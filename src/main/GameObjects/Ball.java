@@ -1,4 +1,4 @@
-package main.scripts;
+package main.GameObjects;
 
 import java.awt.Color;
 
