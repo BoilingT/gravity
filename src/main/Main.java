@@ -7,7 +7,7 @@ import windows.main.MainWindow;
 
 public class Main {
 	
-	private static final int HEIGHT = 700;
+	private static final int HEIGHT = 750;
 	private static final int WIDTH = 1000;
 	
 	private static MainWindow mainWindow = new MainWindow(WIDTH, HEIGHT);

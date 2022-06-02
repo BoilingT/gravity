@@ -197,5 +197,4 @@ public class Canvas extends JPanel implements Runnable{
 	public double deltaTime() {
 		return this.deltaTime;
 	}
-
 }

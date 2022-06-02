@@ -114,6 +114,5 @@ public class ShapeObject {
 	}
 	
 	public void update() {
-		//Check if the transform has changed then make a new shape with that transform
 	}	
 }

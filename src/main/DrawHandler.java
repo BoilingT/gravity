@@ -28,7 +28,7 @@ public class DrawHandler{
 	
 	private HyperCube hyperCube = new HyperCube(-0.5f, 0.5f, -0.5f, 0.5f, 1, 1, 1);
 	private Cube cube = new Cube(-3.5f, 0.5f, -0.5f, 1, 1, 1);
-//	private Cube cube = new Cube(-0.5f, 0f, 0f, 1, 1, 1);
+	private Cube cube2 = new Cube(-0.5f, 3.5f, -2.5f, 1, 1, 1);
 	
 	public DrawHandler() {
 		draw = GraphicGeometry.getInstance();
@@ -58,6 +58,7 @@ public class DrawHandler{
 	public void addGameObjects() {
 		GameObjects.add(hyperCube);
 		GameObjects.add(cube);	
+		GameObjects.add(cube2);	
 	}
 	
 	public void drawGameObjects() {
@@ -82,6 +83,7 @@ public class DrawHandler{
 	private void cubeUpdate() {
 		hyperCube.rotateUpdate(Math.PI/180*-0.2f);
 		cube.rotateUpdate(Math.PI/180*-0.4f);
+		cube2.rotateUpdate(Math.PI/180*0.4f);
 	}
 
 	private void gameObjectUpdate() {
