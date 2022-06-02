@@ -17,6 +17,7 @@ public class HyperCube extends GameObject{
 	ArrayList<Vector3<Float>> vPoints = new ArrayList<>();
 	private Matrix[] pts;
 //	private final float W, H, D, x, y, z, w;
+	public float distance = 5f;
 
 		
 	public HyperCube(float x, float y,float z, float w, float W, float H, float D) {
@@ -132,7 +133,6 @@ public class HyperCube extends GameObject{
 				{0, 0, 0, 1}
 			}), result);
 			
-			float distance = 3f;
 
 			//Project
 			float a = distance / (distance-result.getValues()[2][0]); //z

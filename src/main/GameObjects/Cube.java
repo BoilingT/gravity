@@ -16,7 +16,8 @@ public class Cube extends GameObject{
 	private Matrix[] pts;
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
 //	private float w, h, d, x, y, z;
-	
+	public float distance = 5f;
+
 	public Cube(float x, float y,float z, float w, float h, float d) {
 		this.getTransform().position().set(x, y);
 //		this.w = w;
@@ -84,37 +85,40 @@ public class Cube extends GameObject{
 			Matrix result = Matrix.mult(rotY, m);
 //			result = Matrix.mult(rotZ, result);
 			pts[i].setValues(3,1, result.getValues());
-			float distance = 3f;
-			float a = 1;
+//			float distance = 3f;
+//			float a = 1;
 
-			if(distance-result.getValues()[2][0] > 0) {
-				a = distance / (distance-result.getValues()[2][0]);				
-				Matrix proj2d = new Matrix(2, 3, new float[][] 
-						{
-					{a, 0, 0},
-					{0, a, 0},
-						});
-				projectedPoints[i] = Matrix.mult(proj2d, result);
-			}else if(distance-result.getValues()[2][0] != 0){
-//				result.getValues()[2][0] = ;
-				a = distance / (distance-result.getValues()[2][0]);				
-				System.out.println("noll: " + result.getValues()[2][0]);
-				Matrix proj2d = new Matrix(2, 3, new float[][] 
-						{
-					{a, 0, 0},
-					{0, a, 0},
-						});
-//				float tempAngle = (float) Math.PI/180*180;
-//				result = Matrix.mult(new Matrix(3, 3, new float[][] 
+//			if(distance-result.getValues()[2][0] > 0) {
+//				a = distance / (distance-result.getValues()[2][0]);				
+//				Matrix proj2d = new Matrix(2, 3, new float[][] 
 //						{
-//					{(float)Math.cos(tempAngle), 0, (float)Math.sin(tempAngle)},
-//					{0, 1, 0},
-//					{(float)-Math.sin(tempAngle), 0, (float)Math.cos(tempAngle)}
-//					}), result);
-//				result.mult(10);
-				projectedPoints[i] = Matrix.mult(proj2d, result).mult(distance*100*a);
-			}
-			projectedPoints[i] = projectedPoints[i].mult(100);
+//					{a, 0, 0},
+//					{0, a, 0},
+//						});
+//				projectedPoints[i] = Matrix.mult(proj2d, result);
+//			}else if(distance-result.getValues()[2][0] != 0){
+//				a = distance / (distance-result.getValues()[2][0]);				
+//				System.out.println("noll: " + result.getValues()[2][0]);
+//				Matrix proj2d = new Matrix(2, 3, new float[][] 
+//						{
+//					{a, 0, 0},
+//					{0, a, 0},
+//						});
+//
+//				projectedPoints[i] = Matrix.mult(proj2d, result).mult(distance*100*a);
+//			}
+			
+			//Project
+			float a = distance / (distance-result.getValues()[2][0]); //z
+//			a = 1 / (distance-result.getValues()[2][0]); //z
+//			a=1;
+			Matrix proj2d = new Matrix(3, 3, new float[][] 
+				{
+				{a, 0, 0},
+				{0, a, 0},
+				{0, 0, 1},
+					});
+			projectedPoints[i] = Matrix.mult(proj2d, result);
 			System.out.println("Result: \n" + result.toString() + " a: " + a + "\nprojected: \n" + projectedPoints[i].toString());
 
 		}
@@ -125,21 +129,13 @@ public class Cube extends GameObject{
 	private void pointsToVectors(Matrix[] points) {
 		//Convert points to vectors
 		int n = 0;
-		for (Matrix m : points) {
-			
+		for (int i = 0; i < points.length; i++) {
+			Matrix m = points[i].mult(100);
 			float px, py, pz;
-			px = m.getValues()[0][0] + 500;
-			py = m.getValues()[1][0] + 350;
-			setPoint(n++, new Vector2<Float>(px, py));
-		}
-	}
-	
-	private void setPoint(int index, Vector2<Float> v) {
-		if(vPoints.size() <= 0) vPoints.add(v);
-		if(vPoints.size()-1 >= index) {
-			vPoints.set(index, v);			
-		}else {
-			vPoints.add(index, v);			
+			px = m.getValues()[0][0] + 500; //x
+			py = m.getValues()[1][0] + 350; //y
+			pz = m.getValues()[2][0]; 		//z
+			vPoints.set(i, new Vector3<Float>(px, py, pz));
 		}
 	}
 	

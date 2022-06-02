@@ -22,7 +22,7 @@ public class MainWindow {
 	private int WIDTH;
 	private int HEIGHT;
 	
-	private WindowHandler window = new WindowHandler(WIDTH, HEIGHT, "Animation");
+	private WindowHandler window;
 	private Canvas canvas = null;
 	private ConsoleWindow consoleWindow;
 
@@ -62,13 +62,13 @@ public class MainWindow {
 	};
 		
 	public void init(Object[] objects) {
+		window = new WindowHandler(WIDTH, HEIGHT, "Animation");
 		consoleWindow = (ConsoleWindow) objects[0];
-		initWindowSize();
-		window.getContentPane().setLayout(null);
+//		initWindowSize();
+		window.getContentPane().setLayout(new GridLayout(1,1));
 		
 		canvas.setSize(WIDTH, HEIGHT);
 		
-		canvas.setLayout(null);
 		window.getContentPane().add(canvas);
 		window.addKeyListener(new KeyListener() {
 			

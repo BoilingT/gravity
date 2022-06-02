@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -44,6 +45,17 @@ public class DrawHandler{
 	public void btnAction(Object e, String textContent) {
 		KeyEvent event = (KeyEvent) e;
 		int key = event.getKeyCode();
+		if (key == KeyEvent.VK_1) {
+			hyperCube.distance += 0.1f;			
+		}else if(key == KeyEvent.VK_2) {
+			hyperCube.distance -= 0.1f;			
+		}
+		
+		else if (key == KeyEvent.VK_3) {
+			cube.distance += 0.1f;			
+		}else if(key == KeyEvent.VK_4) {
+			cube.distance -= 0.1f;			
+		}
 	}	
 	
 	//Preparation
