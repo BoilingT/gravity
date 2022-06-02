@@ -20,7 +20,6 @@ public class HyperCube extends GameObject{
 
 		
 	public HyperCube(float x, float y,float z, float w, float W, float H, float D) {
-		this.getTransform().position().set(x, y);
 //		this.W = W;
 //		this.H = H;
 //		this.D = D;
@@ -28,7 +27,7 @@ public class HyperCube extends GameObject{
 //		this.y = y;
 //		this.z = z;
 //		this.w = w;
-			
+		
 		pts = new Matrix[] {
 				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {w}}), //0
 				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {w}}), //1
@@ -59,16 +58,16 @@ public class HyperCube extends GameObject{
 	@Override
 	public void init() {		
 		updateLines();
-		rotateX(0);
+		rotateUpdate(0);
 	}
 	
 	public void rotate(float angle) {
-		for (ShapeObject obj : buildingBlocks().getObjects()) {
+//		for (ShapeObject obj : buildingBlocks().getObjects()) {
 //			obj.rotate(angle, W/2, H/2);
-		}
+//		}
 	}
 	
-	public void rotateX(double angle) {
+	public void rotateUpdate(double angle) {
 		Matrix rotX = new Matrix(4, 4, new float[][] 
 				{
 				{1, 0, 0, 0},
@@ -92,7 +91,6 @@ public class HyperCube extends GameObject{
 				{0, 0, 0, 1}
 				}
 		);
-		angle*=2;
 		
 		Matrix rotW = new Matrix(4, 4, new float[][] 
 				{
@@ -112,60 +110,18 @@ public class HyperCube extends GameObject{
 				}
 		);
 		
-//		pts = new Matrix[] {
-//				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {w}}), //0
-//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {w}}), //1
-//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z}, {w}}), //2
-//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z}, {w}}), //3
-//
-//				new Matrix(4, 1, new float[][] {{x}, {y}, {z+D}, {w}}), //4
-//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z+D}, {w}}), //5
-//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z+D}, {w}}), //6
-//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z+D}, {w}}), //7
-//				//
-//				new Matrix(4, 1, new float[][] {{x}, {y}, {z}, {-w}}), //8
-//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z}, {-w}}), //9
-//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z}, {-w}}), //10
-//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z}, {-w}}), //11
-//
-//				new Matrix(4, 1, new float[][] {{x}, {y}, {z+D}, {-w}}), //12
-//				new Matrix(4, 1, new float[][] {{x+W}, {y}, {z+D}, {-w}}), //13
-//				new Matrix(4, 1, new float[][] {{x+W}, {y-H}, {z+D}, {-w}}), //14
-//				new Matrix(4, 1, new float[][] {{x}, {y-H}, {z+D}, {-w}}), //15
-//		};
-		
 		System.out.println("BEFORE pointsResult 1:\n" + pts[0].toString());
 		Matrix[] projectedPoints = new Matrix[pts.length];
 		for (int i = 0; i < pts.length; i++) {
 			Matrix m = pts[i];
+			//Rotate
 			Matrix result = Matrix.mult(rotW, m);
-
-			if(result == null) {
-				System.out.println("result is null");
-				return;
-			}
 			result = Matrix.mult(rotZ, result);
 //			result = Matrix.mult(rotY, result);
-			float alpha = (float) -Math.PI/180f*90;
 			
-//			result = Matrix.mult(new Matrix(4, 4, new float[][] 
-//					{
-//					{(float)Math.cos(alpha), 0, (float)Math.sin(alpha), 0},
-//					{0, 1, 0, 0},
-//					{(float)-Math.sin(alpha), 0, (float)Math.cos(alpha), 0},
-//					{0, 0, 0, 1}
-//					}
-//			), result);
-//			result = Matrix.mult(rotY, result);
-//			result = Matrix.mult(new Matrix(4, 4, new float[][] 
-//					{
-//					{1, 0, 0, 0},
-//					{0, (float)Math.cos(alpha), (float)-Math.sin(alpha), 0},
-//					{0, (float) Math.sin(alpha), (float)Math.cos(alpha), 0},
-//					{0, 0, 0, 1}
-//					}
-//			), result);
+			float alpha = (float) -Math.PI/180f*90;
 
+			//Update
 			pts[i].setValues(4, 1, result.getValues());
 			
 			float beta = (float) Math.PI/180f*60;
@@ -178,6 +134,7 @@ public class HyperCube extends GameObject{
 			
 			float distance = 3f;
 
+			//Project
 			float a = distance / (distance-result.getValues()[2][0]); //z
 			float b = distance / (distance-result.getValues()[3][0]); //w
 //			a = 1 / (distance-result.getValues()[2][0]); //z
@@ -198,16 +155,8 @@ public class HyperCube extends GameObject{
 				{0, 0, 0, 1},
 					});
 			projectedPoints[i] = Matrix.mult(proj3d, result); //4d to 3d
-			if(projectedPoints[i] == null) {
-				System.out.println("projected is null");
-				return;
-			}
 			
 			projectedPoints[i] = Matrix.mult(proj2d, projectedPoints[i]); //3d to 2d
-			if(projectedPoints[i] == null) {
-				System.out.println("projected2d is null");
-				return;
-			}
 		}
 		System.out.println("AFTER: pointsResult 1:\n" + pts[0].toString());
 		pointsToVectors(projectedPoints);
@@ -230,6 +179,7 @@ public class HyperCube extends GameObject{
 	private void updateLines() {
 //		buildingBlocks().getObjects().clear();
 		
+		//First "cube"
 		setShapeObject(0, Shapes.Line(vPoints.get(0), vPoints.get(1)), vPoints.get(0).getZ(), Color.white, false);
 		setShapeObject(1, Shapes.Line(vPoints.get(1), vPoints.get(2)), vPoints.get(1).getZ(), Color.white, false);
 		setShapeObject(2, Shapes.Line(vPoints.get(2), vPoints.get(3)), vPoints.get(2).getZ(), Color.white, false);
@@ -246,6 +196,7 @@ public class HyperCube extends GameObject{
 		setShapeObject(10, Shapes.Line(vPoints.get(1), vPoints.get(1+4)), vPoints.get(1).getZ(), Color.white, false);
 		setShapeObject(11, Shapes.Line(vPoints.get(2), vPoints.get(2+4)), vPoints.get(2).getZ(), Color.white, false);
 		////////////////////////////////////////////////////
+		//Second "cube";
 		setShapeObject(12, Shapes.Line(vPoints.get(0+8), vPoints.get(1+8)), vPoints.get(0+8).getZ(), Color.white, false);
 		setShapeObject(13, Shapes.Line(vPoints.get(1+8), vPoints.get(2+8)), vPoints.get(1+8).getZ(), Color.white, false);
 		setShapeObject(14, Shapes.Line(vPoints.get(2+8), vPoints.get(3+8)), vPoints.get(2+8).getZ(), Color.white, false);
@@ -271,10 +222,8 @@ public class HyperCube extends GameObject{
 		setShapeObject(29, Shapes.Line(vPoints.get(1+4), vPoints.get(9+4)), vPoints.get(1+4).getZ(), Color.white, false);
 		setShapeObject(30, Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), vPoints.get(2+4).getZ(), Color.white, false);
 		setShapeObject(31, Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), vPoints.get(3+4).getZ(), Color.white, false);
-				
-//		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
-		
-		int n = 32;
+						
+		int n = 32; //Amount of lines
 		for (Vector3<Float> values : vPoints) {
 			setShapeObject(n++, Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.RED, true);
 		}

@@ -58,9 +58,10 @@ public class Matrix {
 	public static Matrix mult(Matrix m1, Matrix m2) {
 		if(m1 == null || m2 == null) return null;
 		if(m1.m != m2.n) {
-			System.out.println("The number of collumns in matrix A must match the number of rows in matrix B");
-			System.out.println("Matrix A: \n" + m1.toString() + "\n Matrix B: \n"  + m2.toString() + "\n Can not be done");
-			System.out.println(m1.n + " != " + m2.m);
+			System.err.println("ERROR At Matrix.mult()");
+			System.err.println("The number of collumns in matrix A must match the number of rows in matrix B");
+			System.err.println("Matrix A: \n" + m1.toString() + "\n Matrix B: \n"  + m2.toString() + "\nCan not be done");
+			System.err.println(m1.n + " != " + m2.m);
 			return null;
 		}
 		
