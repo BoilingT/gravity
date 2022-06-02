@@ -55,7 +55,6 @@ public class MainWindow {
 		public void mouseMoved(MouseEvent e) {
 			// TODO Auto-generated method stub
 			canvas.mouseMotionAction(e);
-			
 		}
 		
 		

@@ -17,6 +17,7 @@ public class Cube extends GameObject{
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
 //	private float w, h, d, x, y, z;
 	public float distance = 5f;
+	public float scale = 100f;
 
 	public Cube(float x, float y,float z, float w, float h, float d) {
 		this.getTransform().position().set(x, y);
@@ -130,7 +131,7 @@ public class Cube extends GameObject{
 		//Convert points to vectors
 		int n = 0;
 		for (int i = 0; i < points.length; i++) {
-			Matrix m = points[i].mult(100);
+			Matrix m = points[i].mult(scale);
 			float px, py, pz;
 			px = m.getValues()[0][0] + 500; //x
 			py = m.getValues()[1][0] + 350; //y
@@ -155,7 +156,6 @@ public class Cube extends GameObject{
 		
 		setShapeObject(10, Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.green, false);
 		setShapeObject(11, Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.green, false);
-//		addShape(Shapes.Arc(new Vector2<Float>(x+500-2, y+350-2), 4, 4), Color.blue, true);
 		
 		int n = 12;
 		for (Vector2<Float> values : vPoints) {

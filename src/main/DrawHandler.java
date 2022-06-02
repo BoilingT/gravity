@@ -52,9 +52,9 @@ public class DrawHandler{
 		}
 		
 		else if (key == KeyEvent.VK_3) {
-			cube.distance += 0.1f;			
+			cube.scale += 10f;			
 		}else if(key == KeyEvent.VK_4) {
-			cube.distance -= 0.1f;			
+			cube.scale -= 10f;			
 		}
 	}	
 	
