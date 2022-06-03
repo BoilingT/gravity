@@ -164,11 +164,10 @@ public class HyperCube extends GameObject{
 //		vPoints.clear();
 		for (int i = 0; i < points.length; i++) {
 			Matrix m = points[i].mult(300);
-			float px, py, pz;
+			float px, py;
 			px = m.getValues()[0][0] + 500; //x
 			py = m.getValues()[1][0] + 350; //y
-			pz = m.getValues()[2][0]; 		//z
-			vPoints.set(i, new Vector2<Float>(px, py));
+			vPoints.get(i).set(px, py);
 		}
 	}
 	

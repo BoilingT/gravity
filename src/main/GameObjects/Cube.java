@@ -129,15 +129,11 @@ public class Cube extends GameObject{
 		int n = 0;
 		for (int i = 0; i < points.length; i++) {
 			Matrix m = points[i].mult(scale);
-			float px, py, pz;
+			float px, py;
 			px = m.getValues()[0][0] + 500; //x
 			py = m.getValues()[1][0] + 350; //y
-			pz = m.getValues()[2][0]; 		//z
-			System.out.println("BEFORE: vPoints: " + vPoints.get(i).toString());
-			System.out.println("BEFORE: px: " + px);
+			
 			vPoints.get(i).set(px, py);
-			System.out.println("AFTER: vPoints: " + vPoints.get(i).toString());
-//			vPoints.set(i, new Vector2<Float>(px, py));
 		}
 	}
 	
