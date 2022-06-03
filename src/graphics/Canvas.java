@@ -4,17 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import graphics.objects.GameObject;
 import graphics.objects.ObjectCollection;
 import graphics.objects.ShapeObject;
 import main.DrawHandler;
@@ -116,7 +111,7 @@ public class Canvas extends JPanel implements Runnable{
 						drawer.draw(object.getShape(), object.getColor());
 					}
 				}else if(object.isText()){
-					drawer.write(object.getText(), object.getPos(), 15, object.getColor());
+					drawer.write(object.getText(), object.getPos().toVec2(), 15, object.getColor());
 				}
 			}
 		} catch (Exception e) {

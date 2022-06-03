@@ -31,7 +31,7 @@ public class animateObject {
 	}
 	
 	public void update() {
-		this.obj.getPos().set(this.obj.getPos().getX() + this.vel.getX(), this.obj.getPos().getY() + this.vel.getY());
+		this.obj.getPos().set(this.obj.getPos().getX() + this.vel.getX(), this.obj.getPos().getY() + this.vel.getY(), 0f);
 	}
 
 }

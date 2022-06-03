@@ -12,8 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.DefaultCaret;
-
 import global.WindowHandler;
 import windows.console.commands.Commands;
 

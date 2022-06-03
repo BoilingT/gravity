@@ -5,7 +5,6 @@ import java.awt.Color;
 import global.math.Vector2;
 import graphics.Shapes;
 import graphics.objects.GameObject;
-import graphics.objects.ShapeObject;
 
 public class Ball extends GameObject{
 
@@ -34,8 +33,8 @@ public class Ball extends GameObject{
 	
 	private void collisionUpdate() {
 		if (border != null) {
-			Vector2<Float> pos = this.getTransform().position();
-			Vector2<Float> borderPos = border.getTransform().position();
+			Vector2<Float> pos = this.getTransform().position().toVec2();
+			Vector2<Float> borderPos = border.getTransform().position().toVec2();
 
 			Vector2<Float> v = getVel();
 			if(pos.getY() + 25f >= border.getHEIGHT()-borderPos.getY()) {

@@ -40,6 +40,10 @@ public class Vector2<T> {
 	public String toString() {
 		return "[x: " + this.getX() + ", y: " + this.getY()+ "]"; 
 	}
+	
+	public Vector3<T> toVec3() {
+		return new Vector3<T>(x, y, null);
+	}
 
 	public static Vector2<Float> scale(Vector2<Float> v, float s){
 		return new Vector2<Float>(v.getX()*s, v.getY()*s);

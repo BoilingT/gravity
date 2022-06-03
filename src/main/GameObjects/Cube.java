@@ -1,15 +1,12 @@
 package main.GameObjects;
 
 import java.awt.Color;
-import java.awt.Shape;
 import java.util.ArrayList;
 
 import global.math.Matrix;
 import global.math.Vector2;
-import global.math.Vector3;
 import graphics.Shapes;
 import graphics.objects.GameObject;
-import graphics.objects.ShapeObject;
 
 public class Cube extends GameObject{
 
@@ -20,7 +17,7 @@ public class Cube extends GameObject{
 	public float scale = 100f;
 
 	public Cube(float x, float y,float z, float w, float h, float d) {
-		this.getTransform().position().set(x, y);
+		this.getTransform().position().set(x, y, 0f);
 //		this.w = w;
 //		this.h = h;
 //		this.d = d;
@@ -40,7 +37,7 @@ public class Cube extends GameObject{
 		};
 		
 		for (int i = 0; i < 24; i++) {
-			vPoints.add(new Vector3<Float>(0f, 0f, 0f));			
+			vPoints.add(new Vector2<Float>(0f, 0f));			
 		}
 	}
 	
@@ -136,7 +133,11 @@ public class Cube extends GameObject{
 			px = m.getValues()[0][0] + 500; //x
 			py = m.getValues()[1][0] + 350; //y
 			pz = m.getValues()[2][0]; 		//z
-			vPoints.set(i, new Vector3<Float>(px, py, pz));
+			System.out.println("BEFORE: vPoints: " + vPoints.get(i).toString());
+			System.out.println("BEFORE: px: " + px);
+			vPoints.get(i).set(px, py);
+			System.out.println("AFTER: vPoints: " + vPoints.get(i).toString());
+//			vPoints.set(i, new Vector2<Float>(px, py));
 		}
 	}
 	

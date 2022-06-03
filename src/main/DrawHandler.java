@@ -1,20 +1,12 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import global.math.Matrix;
 import global.math.Vector2;
-import graphics.Canvas;
 import graphics.GraphicGeometry;
-import graphics.Shapes;
 import graphics.objects.GameObject;
-import graphics.objects.ObjectCollection;
-import graphics.objects.ShapeObject;
 import main.GameObjects.*;
 import windows.console.ConsoleWindow;
 

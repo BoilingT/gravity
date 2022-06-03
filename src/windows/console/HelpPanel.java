@@ -1,8 +1,5 @@
 package windows.console;
 
-import java.awt.Font;
-import java.util.Iterator;
-
 import javax.swing.JTextArea;
 
 import windows.console.commands.Commands;

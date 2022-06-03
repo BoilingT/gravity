@@ -3,8 +3,6 @@ package graphics.objects;
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-
 import global.math.Vector2;
 import global.math.Vector3;
 
@@ -55,13 +53,13 @@ public class ShapeObject {
 		affineTransform.setToTranslation(x, y);
 		this.shape = affineTransform.createTransformedShape(this.shape);
 		
-		this.transform.position().set(new Vector2<Float>(this.transform.position().getX() + x, this.transform.position().getY() + y));
+		this.transform.position().set(new Vector3<Float>(this.transform.position().getX() + x, this.transform.position().getY() + y, 0f));
 	}
 	
 	public void translate(Vector2<Float> translation) {
 		affineTransform.setToTranslation(translation.getX(), translation.getY());
 		this.shape = affineTransform.createTransformedShape(this.shape); //Create the new translated shape
-		this.transform.position().set(new Vector2<Float>(this.transform.position().getX() + translation.getX(), this.transform.position().getY() + translation.getY()));
+		this.transform.position().set(new Vector3<Float>(this.transform.position().getX() + translation.getX(), this.transform.position().getY() + translation.getY(), 0f));
 	}
 	
 	public void rotate(float degrees, float offsetx, float offsety) {
@@ -100,7 +98,7 @@ public class ShapeObject {
 	public ShapeObject(String text, Vector2<Float> pos, Color color) {
 		this.isText = true;
 		this.text = text;
-		this.transform.position().set(pos);
+		this.transform.position().set(pos.toVec3());
 		this.color = color;
 	}
 
@@ -108,7 +106,7 @@ public class ShapeObject {
 		affineTransform = new AffineTransform();
 		Shape tempShape = affineTransform.createTransformedShape(shape);
 		this.shape = tempShape;
-		this.transform.position().set(new Vector2<Float>((float) tempShape.getBounds().x, (float) tempShape.getBounds().y));
+		this.transform.position().set(new Vector3<Float>((float) tempShape.getBounds().x, (float) tempShape.getBounds().y, 0f));
 		this.setColor(color);
 		this.filled = fill;
 	}

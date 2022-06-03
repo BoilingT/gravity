@@ -146,13 +146,13 @@ public abstract class GameObject{
 			}
 			velocity.set(Vector2.add(velocity, acceleration));
 		}
-		Vector2<Float> newPos = Vector2.add(transform.position(), Vector2.scale(velocity, (float) Canvas.getInstance().deltaTime()));
-		Vector2<Float> translation = Vector2.subtract(newPos, prevTransform.position());
+		Vector2<Float> newPos = Vector2.add(transform.position().toVec2(), Vector2.scale(velocity, (float) Canvas.getInstance().deltaTime()));
+		Vector2<Float> translation = Vector2.subtract(newPos, prevTransform.position().toVec2());
 		for (ShapeObject obj : buildingBlocks.getObjects()) {
 			obj.translate(translation);
 			obj.update();
 		}
-		transform.position().set(newPos);
+		transform.position().set(newPos.toVec3());
 		prevTransform.position().set(transform.position());
 	}
 }

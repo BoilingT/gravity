@@ -1,20 +1,16 @@
 package main.GameObjects;
 
 import java.awt.Color;
-import java.awt.Shape;
 import java.util.ArrayList;
 
 import global.math.Matrix;
 import global.math.Vector2;
-import global.math.Vector3;
 import graphics.Shapes;
 import graphics.objects.GameObject;
-import graphics.objects.ObjectCollection;
-import graphics.objects.ShapeObject;
 
 public class HyperCube extends GameObject{
 
-	ArrayList<Vector3<Float>> vPoints = new ArrayList<>();
+	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
 	private Matrix[] pts;
 //	private final float W, H, D, x, y, z, w;
 	public float distance = 5f;
@@ -52,7 +48,7 @@ public class HyperCube extends GameObject{
 		};
 		
 		for (int i = 0; i < 24; i++) {
-			vPoints.add(new Vector3<Float>(0f, 0f, 0f));			
+			vPoints.add(new Vector2<Float>(0f, 0f));			
 		}
 	}
 	
@@ -172,7 +168,7 @@ public class HyperCube extends GameObject{
 			px = m.getValues()[0][0] + 500; //x
 			py = m.getValues()[1][0] + 350; //y
 			pz = m.getValues()[2][0]; 		//z
-			vPoints.set(i, new Vector3<Float>(px, py, pz));
+			vPoints.set(i, new Vector2<Float>(px, py));
 		}
 	}
 	
@@ -180,51 +176,51 @@ public class HyperCube extends GameObject{
 //		buildingBlocks().getObjects().clear();
 		
 		//First "cube"
-		setShapeObject(0, Shapes.Line(vPoints.get(0), vPoints.get(1)), vPoints.get(0).getZ(), Color.white, false);
-		setShapeObject(1, Shapes.Line(vPoints.get(1), vPoints.get(2)), vPoints.get(1).getZ(), Color.white, false);
-		setShapeObject(2, Shapes.Line(vPoints.get(2), vPoints.get(3)), vPoints.get(2).getZ(), Color.white, false);
-		setShapeObject(3, Shapes.Line(vPoints.get(3), vPoints.get(0)), vPoints.get(3).getZ(), Color.white, false);
+		setShapeObject(0, Shapes.Line(vPoints.get(0), vPoints.get(1)), Color.white, false);
+		setShapeObject(1, Shapes.Line(vPoints.get(1), vPoints.get(2)), Color.white, false);
+		setShapeObject(2, Shapes.Line(vPoints.get(2), vPoints.get(3)), Color.white, false);
+		setShapeObject(3, Shapes.Line(vPoints.get(3), vPoints.get(0)), Color.white, false);
 		
-		setShapeObject(4, Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), vPoints.get(0+4).getZ(), Color.white, false);
-		setShapeObject(5, Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), vPoints.get(1+4).getZ(), Color.white, false);
-		setShapeObject(6, Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), vPoints.get(2+4).getZ(), Color.white, false);
-		setShapeObject(7, Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), vPoints.get(3+4).getZ(), Color.white, false);
+		setShapeObject(4, Shapes.Line(vPoints.get(0+4), vPoints.get(1+4)), Color.white, false);
+		setShapeObject(5, Shapes.Line(vPoints.get(1+4), vPoints.get(2+4)), Color.white, false);
+		setShapeObject(6, Shapes.Line(vPoints.get(2+4), vPoints.get(3+4)), Color.white, false);
+		setShapeObject(7, Shapes.Line(vPoints.get(3+4), vPoints.get(0+4)), Color.white, false);
 		
-		setShapeObject(8, Shapes.Line(vPoints.get(0), vPoints.get(0+4)), vPoints.get(0).getZ(), Color.white, false);
-		setShapeObject(9, Shapes.Line(vPoints.get(3), vPoints.get(3+4)), vPoints.get(3).getZ(), Color.white, false);
+		setShapeObject(8, Shapes.Line(vPoints.get(0), vPoints.get(0+4)), Color.white, false);
+		setShapeObject(9, Shapes.Line(vPoints.get(3), vPoints.get(3+4)), Color.white, false);
 		
-		setShapeObject(10, Shapes.Line(vPoints.get(1), vPoints.get(1+4)), vPoints.get(1).getZ(), Color.white, false);
-		setShapeObject(11, Shapes.Line(vPoints.get(2), vPoints.get(2+4)), vPoints.get(2).getZ(), Color.white, false);
+		setShapeObject(10, Shapes.Line(vPoints.get(1), vPoints.get(1+4)), Color.white, false);
+		setShapeObject(11, Shapes.Line(vPoints.get(2), vPoints.get(2+4)), Color.white, false);
 		////////////////////////////////////////////////////
 		//Second "cube";
-		setShapeObject(12, Shapes.Line(vPoints.get(0+8), vPoints.get(1+8)), vPoints.get(0+8).getZ(), Color.white, false);
-		setShapeObject(13, Shapes.Line(vPoints.get(1+8), vPoints.get(2+8)), vPoints.get(1+8).getZ(), Color.white, false);
-		setShapeObject(14, Shapes.Line(vPoints.get(2+8), vPoints.get(3+8)), vPoints.get(2+8).getZ(), Color.white, false);
-		setShapeObject(15, Shapes.Line(vPoints.get(3+8), vPoints.get(0+8)), vPoints.get(3+8).getZ(), Color.white, false);
+		setShapeObject(12, Shapes.Line(vPoints.get(0+8), vPoints.get(1+8)), Color.white, false);
+		setShapeObject(13, Shapes.Line(vPoints.get(1+8), vPoints.get(2+8)), Color.white, false);
+		setShapeObject(14, Shapes.Line(vPoints.get(2+8), vPoints.get(3+8)), Color.white, false);
+		setShapeObject(15, Shapes.Line(vPoints.get(3+8), vPoints.get(0+8)), Color.white, false);
 		
-  		setShapeObject(16, Shapes.Line(vPoints.get(0+4+8), vPoints.get(1+4+8)), vPoints.get(0+4+8).getZ(), Color.white, false);
-		setShapeObject(17, Shapes.Line(vPoints.get(1+4+8), vPoints.get(2+4+8)), vPoints.get(1+4+8).getZ(), Color.white, false);
-		setShapeObject(18, Shapes.Line(vPoints.get(2+4+8), vPoints.get(3+4+8)), vPoints.get(2+4+8).getZ(), Color.white, false);
-		setShapeObject(19, Shapes.Line(vPoints.get(3+4+8), vPoints.get(0+4+8)), vPoints.get(3+4+8).getZ(), Color.white, false);
+  		setShapeObject(16, Shapes.Line(vPoints.get(0+4+8), vPoints.get(1+4+8)), Color.white, false);
+		setShapeObject(17, Shapes.Line(vPoints.get(1+4+8), vPoints.get(2+4+8)), Color.white, false);
+		setShapeObject(18, Shapes.Line(vPoints.get(2+4+8), vPoints.get(3+4+8)), Color.white, false);
+		setShapeObject(19, Shapes.Line(vPoints.get(3+4+8), vPoints.get(0+4+8)), Color.white, false);
 		
-		setShapeObject(20, Shapes.Line(vPoints.get(0+8), vPoints.get(0+4+8)), vPoints.get(0+8).getZ(), Color.white, false);
-		setShapeObject(21, Shapes.Line(vPoints.get(3+8), vPoints.get(3+4+8)), vPoints.get(3+8).getZ(), Color.white, false);
+		setShapeObject(20, Shapes.Line(vPoints.get(0+8), vPoints.get(0+4+8)), Color.white, false);
+		setShapeObject(21, Shapes.Line(vPoints.get(3+8), vPoints.get(3+4+8)), Color.white, false);
 		
-		setShapeObject(22, Shapes.Line(vPoints.get(1+8), vPoints.get(1+4+8)), vPoints.get(1+8).getZ(), Color.white, false);
-		setShapeObject(23, Shapes.Line(vPoints.get(2+8), vPoints.get(2+4+8)), vPoints.get(2+8).getZ(), Color.white, false);
+		setShapeObject(22, Shapes.Line(vPoints.get(1+8), vPoints.get(1+4+8)), Color.white, false);
+		setShapeObject(23, Shapes.Line(vPoints.get(2+8), vPoints.get(2+4+8)), Color.white, false);
 		
-		setShapeObject(24, Shapes.Line(vPoints.get(0), vPoints.get(8)), vPoints.get(0).getZ(), Color.white, false);
-		setShapeObject(25, Shapes.Line(vPoints.get(1), vPoints.get(9)), vPoints.get(1).getZ(), Color.white, false);
-		setShapeObject(26, Shapes.Line(vPoints.get(2), vPoints.get(10)), vPoints.get(2).getZ(), Color.white, false);
-		setShapeObject(27, Shapes.Line(vPoints.get(3), vPoints.get(11)), vPoints.get(3).getZ(), Color.white, false);
+		setShapeObject(24, Shapes.Line(vPoints.get(0), vPoints.get(8)), Color.white, false);
+		setShapeObject(25, Shapes.Line(vPoints.get(1), vPoints.get(9)), Color.white, false);
+		setShapeObject(26, Shapes.Line(vPoints.get(2), vPoints.get(10)), Color.white, false);
+		setShapeObject(27, Shapes.Line(vPoints.get(3), vPoints.get(11)), Color.white, false);
 
-		setShapeObject(28, Shapes.Line(vPoints.get(0+4), vPoints.get(8+4)), vPoints.get(0+4).getZ(), Color.white, false);
-		setShapeObject(29, Shapes.Line(vPoints.get(1+4), vPoints.get(9+4)), vPoints.get(1+4).getZ(), Color.white, false);
-		setShapeObject(30, Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), vPoints.get(2+4).getZ(), Color.white, false);
-		setShapeObject(31, Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), vPoints.get(3+4).getZ(), Color.white, false);
+		setShapeObject(28, Shapes.Line(vPoints.get(0+4), vPoints.get(8+4)), Color.white, false);
+		setShapeObject(29, Shapes.Line(vPoints.get(1+4), vPoints.get(9+4)), Color.white, false);
+		setShapeObject(30, Shapes.Line(vPoints.get(2+4), vPoints.get(10+4)), Color.white, false);
+		setShapeObject(31, Shapes.Line(vPoints.get(3+4), vPoints.get(11+4)), Color.white, false);
 						
 		int n = 32; //Amount of lines
-		for (Vector3<Float> values : vPoints) {
+		for (Vector2<Float> values : vPoints) {
 			setShapeObject(n++, Shapes.Arc(new Vector2<Float>(values.getX()-5, values.getY()-5), 10, 10), Color.RED, true);
 		}
 	}
