@@ -11,7 +11,7 @@ import graphics.objects.GameObject;
 public class HyperCube extends GameObject{
 
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
-	private Matrix[] pts;
+	public Matrix[] pts;
 //	private final float W, H, D, x, y, z, w;
 	public float distance = 5f;
 

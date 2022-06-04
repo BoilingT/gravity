@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import global.math.Matrix;
 import global.math.Vector2;
 import graphics.GraphicGeometry;
 import graphics.objects.GameObject;
@@ -48,6 +49,56 @@ public class DrawHandler{
 		}else if(key == KeyEvent.VK_4) {
 			cube.scale -= 10f;			
 		}
+		
+		if (key == KeyEvent.VK_W) {
+			for (Matrix m : cube.pts) {
+				m.getValues()[2][0] += 0.05f; 
+			}
+		}
+		
+		if(key == KeyEvent.VK_S) {
+			for (Matrix m : cube.pts) {
+				m.getValues()[2][0] -= 0.05f; 
+			}
+		}
+		
+		if (key == KeyEvent.VK_A) {
+			for (Matrix m : cube.pts) {
+				m.getValues()[0][0] += 0.05f; 
+			}	
+		}
+		
+		if(key == KeyEvent.VK_D) {
+			for (Matrix m : cube.pts) {
+				m.getValues()[0][0] -= 0.05f; 
+			}
+		}
+		///////////////
+		
+		///////////////
+		if (key == KeyEvent.VK_W) {
+			for (Matrix m : hyperCube.pts) {
+				m.getValues()[1][0] += 0.05f; 
+			}
+		}
+		
+		if(key == KeyEvent.VK_S) {
+			for (Matrix m : hyperCube.pts) {
+				m.getValues()[1][0] -= 0.05f; 
+			}
+		}
+		
+		if (key == KeyEvent.VK_A) {
+			for (Matrix m : hyperCube.pts) {
+				m.getValues()[0][0] += 0.05f; 
+			}
+		}
+		
+		if(key == KeyEvent.VK_D) {
+			for (Matrix m : hyperCube.pts) {
+				m.getValues()[0][0] -= 0.05f; 
+			}
+		}
 	}	
 	
 	//Preparation
@@ -86,6 +137,8 @@ public class DrawHandler{
 	
 	private void cubeUpdate() {
 		hyperCube.rotateUpdate(Math.PI/180*-0.2f);
+//		hyperCube.rotateUpdate(0f);
+//		cube.rotateUpdate(0f);
 		cube.rotateUpdate(Math.PI/180*-0.4f);
 		cube2.rotateUpdate(Math.PI/180*0.4f);
 	}

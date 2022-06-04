@@ -10,7 +10,7 @@ import graphics.objects.GameObject;
 
 public class Cube extends GameObject{
 
-	private Matrix[] pts;
+	public Matrix[] pts;
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
 //	private float w, h, d, x, y, z;
 	public float distance = 5f;
