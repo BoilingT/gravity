@@ -155,4 +155,8 @@ public abstract class GameObject{
 		transform.position().set(newPos.toVec3());
 		prevTransform.position().set(transform.position());
 	}
+	
+	public void rotateUpdate(double angle) {
+		
+	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import global.math.Matrix;
 import global.math.Vector2;
+import graphics.Canvas;
 import graphics.Shapes;
 import graphics.objects.GameObject;
 
@@ -63,8 +64,8 @@ public class HyperCube extends GameObject{
 //			obj.rotate(angle, W/2, H/2);
 //		}
 	}
-	
 	public void rotateUpdate(double angle) {
+		angle = Math.PI/180*-0.2f;
 		Matrix rotX = new Matrix(4, 4, new float[][] 
 				{
 				{1, 0, 0, 0},
@@ -107,7 +108,6 @@ public class HyperCube extends GameObject{
 				}
 		);
 		
-		System.out.println("BEFORE pointsResult 1:\n" + pts[0].toString());
 		Matrix[] projectedPoints = new Matrix[pts.length];
 		for (int i = 0; i < pts.length; i++) {
 			Matrix m = pts[i];
@@ -154,7 +154,6 @@ public class HyperCube extends GameObject{
 			
 			projectedPoints[i] = Matrix.mult(proj2d, projectedPoints[i]); //3d to 2d
 		}
-		System.out.println("AFTER: pointsResult 1:\n" + pts[0].toString());
 		pointsToVectors(projectedPoints);
 		updateLines();
 	};
@@ -162,11 +161,12 @@ public class HyperCube extends GameObject{
 	private void pointsToVectors(Matrix[] points) {
 		//Convert points to vectors
 //		vPoints.clear();
+		Canvas canvas = Canvas.getInstance();
 		for (int i = 0; i < points.length; i++) {
 			Matrix m = points[i].mult(300);
 			float px, py;
-			px = m.getValues()[0][0] + 500; //x
-			py = m.getValues()[1][0] + 350; //y
+			px = m.getValues()[0][0] + canvas.getWidth()/2; //x
+			py = m.getValues()[1][0] + canvas.getHeight()/2; //y
 			vPoints.get(i).set(px, py);
 		}
 	}

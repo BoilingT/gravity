@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import global.math.Vector3;
 import graphics.objects.ObjectCollection;
 import graphics.objects.ShapeObject;
 import main.DrawHandler;
@@ -37,6 +38,13 @@ public class Canvas extends JPanel implements Runnable{
 	protected double deltaTime = 0;
 	private boolean running = true;
 	
+	public static enum ObjectType {
+		Cube,
+		CubeNPlayer,
+		Cube2,
+		HyperCube
+	};
+	
 	public Canvas() {
 		setup();
 	}
@@ -47,6 +55,14 @@ public class Canvas extends JPanel implements Runnable{
 	
 	public void btnAction(Object e, String content) {
 		drawHandler.btnAction(e, content);
+	}
+	
+	public void drawObject(ObjectType objectType, Vector3<Float> pos, Vector3<Float> dim, Vector3<Float> rot) {
+		drawHandler.drawObject(objectType, pos, dim, rot);
+	}
+		
+	public void updateObjectData(ObjectType objectType, Vector3<Float> pos, Vector3<Float> dim, Vector3<Float> rot) {
+		drawHandler.updateObjectData(objectType, pos, dim, rot);
 	}
 	
 	//Setup

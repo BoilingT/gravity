@@ -16,6 +16,9 @@ public class Shapes {
 	
 	public void setGraphics2D(Graphics g) {
 		this.g = (Graphics2D) g;
+		this.g.setRenderingHint(
+			    RenderingHints.KEY_ANTIALIASING,
+			    RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 	
 	public boolean isNull() {
@@ -64,26 +67,17 @@ public class Shapes {
 	}
 	
 	public void write(String text, Vector2<Float> position, int Size, Color color) {
-		g.setRenderingHint(
-			    RenderingHints.KEY_ANTIALIASING,
-			    RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setColor(color);
 		g.setFont(new Font("Arial", Font.BOLD, Size));
 		g.drawString(text, position.getX(), position.getY());
 	}
 	
 	public void draw(Shape s, Color color) {
-		g.setRenderingHint(
-			    RenderingHints.KEY_ANTIALIASING,
-			    RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setColor(color);
 		g.draw(s);
 	}
 	
 	public void fill(Shape s, Color color) {
-		g.setRenderingHint(
-			    RenderingHints.KEY_ANTIALIASING,
-			    RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setColor(color);
 		g.fill(s);
 	}

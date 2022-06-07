@@ -5,22 +5,20 @@ import java.util.ArrayList;
 
 import global.math.Matrix;
 import global.math.Vector2;
-import global.math.Vector3;
 import graphics.Canvas;
 import graphics.Shapes;
 import graphics.objects.GameObject;
 
-public class Cube extends GameObject{
+public class Cube2 extends GameObject{
 
 	public Matrix[] pts;
 	ArrayList<Vector2<Float>> vPoints = new ArrayList<>();
-	private Vector3<Float> origin = new Vector3<Float>(-0.5f, 0.5f, -0.5f);
+//	private float w, h, d, x, y, z;
 	public float distance = 5f;
 	public float scale = 100f;
-	
 
-	public Cube(float x, float y,float z, float w, float h, float d) {
-		this.getTransform().position().set(x, y, z);
+	public Cube2(float x, float y,float z, float w, float h, float d) {
+		this.getTransform().position().set(x, y, 0f);
 //		this.w = w;
 //		this.h = h;
 //		this.d = d;
@@ -28,15 +26,15 @@ public class Cube extends GameObject{
 //		this.y = y;
 //		this.z = z;
 		pts = new Matrix[] {
-				new Matrix(3, 1, new float[][] {{origin.getX()}, {origin.getY()}, {origin.getZ()}}), //0
-				new Matrix(3, 1, new float[][] {{origin.getX()+w}, {origin.getY()}, {origin.getZ()}}), //1
-				new Matrix(3, 1, new float[][] {{origin.getX()+w}, {origin.getY()-h}, {origin.getZ()}}), //2
-				new Matrix(3, 1, new float[][] {{origin.getX()}, {origin.getY()-h}, {origin.getZ()}}), //3
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z}}), //0
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z}}), //1
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z}}), //2
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z}}), //3
 
-				new Matrix(3, 1, new float[][] {{origin.getX()}, {origin.getY()}, {origin.getZ()+d}}), //4
-				new Matrix(3, 1, new float[][] {{origin.getX()+w}, {origin.getY()}, {origin.getZ()+d}}), //5
-				new Matrix(3, 1, new float[][] {{origin.getX()+w}, {origin.getY()-h}, {origin.getZ()+d}}), //6
-				new Matrix(3, 1, new float[][] {{origin.getX()}, {origin.getY()-h}, {origin.getZ()+d}}), //7
+				new Matrix(3, 1, new float[][] {{x}, {y}, {z+d}}), //4
+				new Matrix(3, 1, new float[][] {{x+w}, {y}, {z+d}}), //5
+				new Matrix(3, 1, new float[][] {{x+w}, {y-h}, {z+d}}), //6
+				new Matrix(3, 1, new float[][] {{x}, {y-h}, {z+d}}), //7
 		};
 		
 		for (int i = 0; i < 24; i++) {
@@ -57,26 +55,26 @@ public class Cube extends GameObject{
 	}
 	
 	public void rotateUpdate(double angle) {
-		Vector3<Float> rot = getTransform().rotation();
+		
 		Matrix rotX = new Matrix(3, 3, new float[][] 
 				{
 				{1, 0, 0},
-				{0, (float)Math.cos(rot.getX()), (float)-Math.sin(rot.getX())},
-				{0, (float) Math.sin(rot.getX()), (float)Math.cos(rot.getX())},
+				{0, (float)Math.cos(angle), (float)-Math.sin(angle)},
+				{0, (float) Math.sin(angle), (float)Math.cos(angle)},
 				}
 		);
 		
 		Matrix rotZ = new Matrix(3, 3, new float[][]{
-				{(float)Math.cos(rot.getZ()), (float)-Math.sin(rot.getZ()), 0},
-				{(float)Math.sin(rot.getZ()), (float)Math.cos(rot.getZ()), 0},
+				{(float)Math.cos(angle), (float)-Math.sin(angle), 0},
+				{(float)Math.sin(angle), (float)Math.cos(angle), 0},
 				{0, 0, 1},
 			});
 		
 		Matrix rotY = new Matrix(3, 3, new float[][] 
 				{
-				{(float)Math.cos(rot.getY()), 0, (float)Math.sin(rot.getY())},
+				{(float)Math.cos(angle), 0, (float)Math.sin(angle)},
 				{0, 1, 0},
-				{(float)-Math.sin(rot.getY()), 0, (float)Math.cos(rot.getY())}
+				{(float)-Math.sin(angle), 0, (float)Math.cos(angle)}
 				}
 		);
 				
@@ -84,8 +82,7 @@ public class Cube extends GameObject{
 		for (int i = 0; i < pts.length; i++) {
 			Matrix m = pts[i];
 			Matrix result = Matrix.mult(rotY, m);
-			result = Matrix.mult(rotZ, result);
-			result = Matrix.mult(rotX, result);
+//			result = Matrix.mult(rotZ, result);
 			pts[i].setValues(3,1, result.getValues());
 //			float distance = 3f;
 //			float a = 1;
@@ -111,7 +108,6 @@ public class Cube extends GameObject{
 //			}
 			
 			//Project
-			
 			float a = distance / (distance-result.getValues()[2][0]); //z
 //			a = 1 / (distance-result.getValues()[2][0]); //z
 //			a=1;
@@ -122,7 +118,7 @@ public class Cube extends GameObject{
 				{0, 0, 1},
 					});
 			projectedPoints[i] = Matrix.mult(proj2d, result);
-//			System.out.println("Result: \n" + result.toString() + " a: " + a + "\nprojected: \n" + projectedPoints[i].toString());
+			System.out.println("Result: \n" + result.toString() + " a: " + a + "\nprojected: \n" + projectedPoints[i].toString());
 
 		}
 		pointsToVectors(projectedPoints);
@@ -132,15 +128,12 @@ public class Cube extends GameObject{
 	private void pointsToVectors(Matrix[] points) {
 		//Convert points to vectors
 		int n = 0;
-		final Canvas canvas = Canvas.getInstance();
-		final Vector2<Integer> screenOrigin = new Vector2<Integer>(canvas.getWidth()/2, canvas.getHeight()/2);
+		Canvas canvas = Canvas.getInstance();
 		for (int i = 0; i < points.length; i++) {
-			Vector3<Float> pos = this.getTransform().position();
-			Matrix m = points[i].mult(pos.getZ()*500 + 100);
-//			Matrix m = points[i].mult(100);
+			Matrix m = points[i].mult(scale);
 			float px, py;
-			px = m.getValues()[0][0] + pos.getX() * canvas.getWidth(); //x
-			py = m.getValues()[1][0] + pos.getY() * canvas.getHeight(); //y
+			px = m.getValues()[0][0] + canvas.getWidth()/2; //x
+			py = m.getValues()[1][0] + canvas.getHeight()/2; //y
 			
 			vPoints.get(i).set(px, py);
 		}
